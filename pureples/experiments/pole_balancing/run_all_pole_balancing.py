@@ -34,7 +34,7 @@ es_hyperneat_medium_ten_solved, es_hyperneat_large_ten_solved = 0, 0
 neat_hundred_solved, hyperneat_hundred_solved, es_hyperneat_small_hundred_solved = 0, 0, 0 
 es_hyperneat_medium_hundred_solved, es_hyperneat_large_hundred_solved = 0, 0
 
-runs = 20
+runs = 16
 inputs = range(runs)
 gens = 50
 fit_threshold = 475
