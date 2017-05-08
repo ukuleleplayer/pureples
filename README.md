@@ -16,7 +16,7 @@ Getting started
 This section briefly describes how to install and run experiments.  
 
 ### Installation Guide
-First, make sure you have the dependencies installed: `numpy`, `neat-python`, `graphviz`, `matplotlib`, `gym` and `cPickle`.  
+First, make sure you have the dependencies installed: `numpy`, `neat-python`, `graphviz`, `matplotlib` and `gym`.  
 All the above can be installed using [pip](https://pip.pypa.io/en/stable/installing/).  
 Next, download the source code and run `setup.py` from the root folder. Now you're able to use **PUREPLES**!
 
