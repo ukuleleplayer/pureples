@@ -14,7 +14,7 @@ config = neat.config.Config(neat.genome.DefaultGenome, neat.reproduction.Default
 
 # Use the gym_runner to run this experiment using NEAT.
 def run(gens, env):
-    winner, stats = run_neat(gens, env, 500, config, output=True)
+    winner, stats = run_neat(gens, env, 500, config)
     print("neat_pole_balancing done") 
     return winner, stats
 
