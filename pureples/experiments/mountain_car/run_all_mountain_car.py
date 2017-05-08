@@ -28,9 +28,9 @@ es_hyperneat_medium_one_solved, es_hyperneat_large_one_solved = 0, 0
 neat_ten_solved, hyperneat_ten_solved, es_hyperneat_small_ten_solved = 0, 0, 0 
 es_hyperneat_medium_ten_solved, es_hyperneat_large_ten_solved = 0, 0
 
-runs = 1
+runs = 16
 inputs = range(runs)
-gens = 1
+gens = 200
 fit_threshold = -110
 max_fit = -110
 env = gym.make("MountainCar-v0")
