@@ -1,4 +1,4 @@
-<img src="https://github.com/ukuleleplayer/pureples/blob/master/PUREPLES.png" alt="REPLES LOGO" width="200" height="200">
+<img src="https://github.com/ukuleleplayer/pureples/blob/master/PUREPLES.png" alt="REPLES LOGO" width="400" height="400">
 
 PUREPLES - Pure Python Library for ES-HyperNEAT
 ===============================================
