@@ -1,3 +1,5 @@
+![PUREPLES LOGO](https://github.com/ukuleleplayer/pureples/blob/master/PUREPLES.png "PUREPLES logo")
+
 PUREPLES - Pure Python Library for ES-HyperNEAT
 ===============================================
 
