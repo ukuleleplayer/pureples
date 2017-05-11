@@ -54,7 +54,7 @@ def onclick(event):
     x = event.xdata
     y = event.ydata
     
-    path_to_cppn = ""
+    path_to_cppn = "es_hyperneat_xor_small_cppn.pkl"
     with open(path_to_cppn, 'rb') as input:  # For now, path_to_cppn should match path in test_cppn.py, sorry.
         cppn = pickle.load(input)
         from pureples.es_hyperneat.es_hyperneat import find_pattern
