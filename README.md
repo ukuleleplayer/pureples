@@ -9,7 +9,7 @@ This is a library of evolutionary algorithms with a focus on neuroevolution, imp
 
 **NEAT** (NeuroEvolution of Augmenting Topologies) is a method developed by Kenneth O. Stanley for evolving arbitrary neural networks.  
 **HyperNEAT** (Hypercube-based NEAT) is a method developed by Kenneth O. Stanley utilizing NEAT. It is a technique for evolving large-scale neural networks using the geometric regularities of the task domain.  
-**ES-HyperNEAT** (Evolvable-substrate HyperNEAT) is a method developed by Sebastian Risi utilizing HyperNEAT. It is a technique for evolving large-scale neural networks using the geometric regularities of the task domain. In contrast to HyperNEAT, the substrate used during evolotuion is able to evolve. This rids the user of some initial work and often creates a more suitable substrate.
+**ES-HyperNEAT** (Evolvable-substrate HyperNEAT) is a method developed by Sebastian Risi and Kenneth O. Stanley utilizing HyperNEAT. It is a technique for evolving large-scale neural networks using the geometric regularities of the task domain. In contrast to HyperNEAT, the substrate used during evolotuion is able to evolve. This rids the user of some initial work and often creates a more suitable substrate.
 
 The library is extensible and allows easy experimenting.
 
