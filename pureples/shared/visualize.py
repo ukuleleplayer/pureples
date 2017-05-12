@@ -63,7 +63,7 @@ def onclick(event):
 
 
 # Draws the pattern/weight gradient queried by a CPPN. 
-def draw_pattern(im, res=10):
+def draw_pattern(im, res=60):
     fig = plt.figure()
     plt.axis([-1, 1, -1, 1])
     fig.add_subplot(111)

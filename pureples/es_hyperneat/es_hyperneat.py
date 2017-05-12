@@ -3,6 +3,7 @@ import copy
 import numpy as np
 from pureples.hyperneat.hyperneat import query_cppn
 from pureples.shared.visualize import draw_es
+from pureples.shared.visualize import draw_temp
 
 
 class ESNetwork:
@@ -216,7 +217,7 @@ class ESNetwork:
         true_nodes -= (set(self.substrate.input_coordinates).union(set(self.substrate.output_coordinates)))
         
         return true_nodes, true_connections
-        
+
 
 # Class representing an area in the quadtree defined by a center coordinate and the distance to the edges of the area. 
 class QuadPoint:
@@ -249,7 +250,7 @@ class Connection:
 
 
 # From a given point, query the cppn for weights to all other points. This can be visualized as a connectivity pattern.
-def find_pattern(cppn, coord, res=10, max_weight=5.0):
+def find_pattern(cppn, coord, res=60, max_weight=5.0):
     im = np.zeros((res, res))
 
     for x2 in range(res):
