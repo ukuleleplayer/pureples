@@ -74,7 +74,6 @@ if __name__ == '__main__':
     cppn = neat.nn.FeedForwardNetwork.create(winner, config)
     network = ESNetwork(sub, cppn, params)
     winner_net = network.create_phenotype_network(filename='es_hyperneat_xor_large_winner.png')  # This will also draw winner_net.
-    network.temp()
     for inputs, expected in zip(xor_inputs, xor_outputs):
         new_input = inputs + (1.0,)
         winner_net.reset()
