@@ -3,7 +3,6 @@ import copy
 import numpy as np
 from pureples.hyperneat.hyperneat import query_cppn
 from pureples.shared.visualize import draw_es
-from pureples.shared.visualize import draw_temp
 
 
 class ESNetwork:
