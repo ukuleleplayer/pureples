@@ -1,4 +1,4 @@
-import cPickle as pickle
+import cPickle as pickle 
 from pureples.es_hyperneat.es_hyperneat import find_pattern
 from pureples.shared.visualize import draw_pattern
 

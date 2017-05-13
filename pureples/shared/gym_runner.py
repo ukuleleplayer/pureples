@@ -1,4 +1,4 @@
-import neat
+import neat 
 import numpy as np
 from pureples.hyperneat.hyperneat import create_phenotype_network
 from pureples.es_hyperneat.es_hyperneat import ESNetwork

@@ -1,4 +1,4 @@
-#--- parameters for the CPPN related to the XOR experiment ---#
+#--- parameters for the CPPN related to the XOR experiment  ---#
 
 [NEAT]
 fitness_criterion     = max

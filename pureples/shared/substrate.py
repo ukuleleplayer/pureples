@@ -5,3 +5,4 @@ class Substrate(object):
         self.hidden_coordinates = hidden_coordinates        
         self.output_coordinates = output_coordinates
         self.res = res
+

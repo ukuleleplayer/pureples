@@ -1,4 +1,4 @@
-#--- parameters for the NEAT single pole balancing experiment ---#
+#--- parameters for the NEAT single pole balancing experiment  ---#
 
 [NEAT]
 fitness_criterion     = max

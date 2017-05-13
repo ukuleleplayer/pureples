@@ -1,4 +1,4 @@
-#--- parameters for the NEAT mountain car experiment ---#
+#--- parameters for the NEAT mountain car experiment  ---#
 
 [NEAT]
 fitness_criterion     = max

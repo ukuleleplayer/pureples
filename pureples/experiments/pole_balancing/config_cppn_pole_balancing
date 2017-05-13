@@ -1,4 +1,4 @@
-#--- parameters for the CPPN regarding the single pole balancing experiment ---#
+#--- parameters for the CPPN regarding the single pole balancing experiment  ---#
 
 [NEAT]
 fitness_criterion     = max

@@ -1,4 +1,4 @@
-import neat
+import neat 
 import logging
 import cPickle as pickle
 import gym

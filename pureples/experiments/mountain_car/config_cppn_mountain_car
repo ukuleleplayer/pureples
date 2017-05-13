@@ -1,4 +1,4 @@
-#--- parameters for the CPPN regarding the mountain car experiment ---#
+#--- parameters for the CPPN regarding the mountain car experiment  ---#
 
 [NEAT]
 fitness_criterion     = max

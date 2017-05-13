@@ -1,4 +1,4 @@
-import neat
+import neat 
 import copy
 import numpy as np
 from pureples.hyperneat.hyperneat import query_cppn

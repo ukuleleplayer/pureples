@@ -1,1 +1,1 @@
-from pureples.es_hyperneat.es_hyperneat import ESNetwork, find_pattern
+from pureples.es_hyperneat.es_hyperneat import ESNetwork, find_pattern 

@@ -40,5 +40,5 @@ Use the same setup as HyperNEAT except for:
 
 If one is trying to solve an experiment defined by the [OpenAI Gym](https://gym.openai.com/) it is even easier to experiment. In the `shared` module a file called `gym_runner` is able to do most of the work. Given the number of generations, the environment to run, a configuration file, and a substrate, the relevant runner will take care of everything regarding population, fitness function etc.
 
-Please refer to the sample experiments included for further details on experimenting.
+Please refer to the sample experiments included for further details on experimenting. 
 

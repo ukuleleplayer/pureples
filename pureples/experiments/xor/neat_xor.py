@@ -1,4 +1,4 @@
-import neat
+import neat 
 import neat.nn
 import cPickle as pickle
 import sys
