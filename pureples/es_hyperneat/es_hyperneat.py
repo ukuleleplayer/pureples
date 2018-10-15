@@ -28,7 +28,7 @@ class ESNetwork:
         output_coordinates = self.substrate.output_coordinates
 
         input_nodes = range(len(input_coordinates))
-        output_nodes = range(len(input_nodes), len(input_nodes)+len(output_coordinates))
+        output_nodes = range(len(output_coordinates))
         hidden_idx = len(input_coordinates)+len(output_coordinates)
 
         coordinates, indices, draw_connections, node_evals = [], [], [], []
@@ -51,7 +51,7 @@ class ESNetwork:
             hidden_idx += 1
 
         # For every coordinate, check the connections and create a node with corresponding connections if appropriate.
-        for (x, y), idx in coords_to_id.iteritems():
+        for (x, y), idx in coords_to_id.items():
             for c in connections:
                 if c.x2 == x and c.y2 == y:
                     draw_connections.append(c)
@@ -63,13 +63,12 @@ class ESNetwork:
                         nodes[idx] = [(coords_to_id[c.x1, c.y1], c.weight)]
 
         # Combine the indices with the connections/links forming node_evals used by the RecurrentNetwork.
-        for idx, links in nodes.iteritems():
+        for idx, links in nodes.items():
             node_evals.append((idx, self.activation, sum, 0.0, 1.0, links))
                     
         # Visualize the network?
         if filename is not None:
             draw_es(coords_to_id, draw_connections, filename)
-
         return neat.nn.RecurrentNetwork(input_nodes, output_nodes, node_evals)  # This is actually a feedforward network.
 
     # Recursively collect all weights for a given QuadPoint.

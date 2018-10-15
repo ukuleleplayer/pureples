@@ -48,7 +48,7 @@ def eval_fitness(genomes, config):
                 output = net.activate(new_input)
 
             sum_square_error += ((output[0] - expected[0])**2.0)/4.0
- 
+            print(output[x])
         g.fitness = 1 - sum_square_error
 
 
