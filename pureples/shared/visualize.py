@@ -88,7 +88,6 @@ def draw_pattern(im, res=60):
 # Draw the net created by ES-HyperNEAT
 def draw_es(id_to_coords, connections, filename):
     fig = plt.figure()
-    plt.clf()
     plt.axis([-1.1, 1.1, -1.1, 1.1])
     fig.add_subplot(111)
 
