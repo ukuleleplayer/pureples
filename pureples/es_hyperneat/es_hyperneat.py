@@ -21,14 +21,14 @@ class ESNetwork:
         self.activations = 2 ** params["max_depth"] + 1  # Number of layers in the network.
         activation_functions = neat.activations.ActivationFunctionSet()
         self.activation = activation_functions.get(params["activation"])
-
+        #self.activation_sigmoid = activation_functions.get("sigmoid")
     # Create a RecurrentNetwork using the ES-HyperNEAT approach.
     def create_phenotype_network(self, filename=None):
         input_coordinates = self.substrate.input_coordinates
         output_coordinates = self.substrate.output_coordinates
 
         input_nodes = range(len(input_coordinates))
-        output_nodes = range(len(output_coordinates))
+        output_nodes = range(len(input_nodes), len(input_nodes)+len(output_coordinates))
         hidden_idx = len(input_coordinates)+len(output_coordinates)
 
         coordinates, indices, draw_connections, node_evals = [], [], [], []
