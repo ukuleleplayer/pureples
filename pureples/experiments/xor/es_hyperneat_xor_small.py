@@ -1,6 +1,5 @@
 import neat 
 import neat.nn
-import cPickle as pickle
 from pureples.shared.substrate import Substrate
 from pureples.shared.visualize import draw_net
 from pureples.es_hyperneat.es_hyperneat import ESNetwork
@@ -48,7 +47,7 @@ def eval_fitness(genomes, config):
                 output = net.activate(new_input)
 
             sum_square_error += ((output[0] - expected[0])**2.0)/4.0
- 
+            print(output[0])
         g.fitness = 1 - sum_square_error
 
 

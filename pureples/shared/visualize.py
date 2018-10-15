@@ -1,7 +1,8 @@
 import graphviz 
 import matplotlib.pyplot as plt
 import _pickle as pickle
-
+import os
+os.environ["PATH"] += os.pathsep + 'D:/Program Files (x86)/Graphviz2.38/bin/'
 
 # Draw neural network with arbitrary topology.
 def draw_net(net, filename=None):
@@ -87,6 +88,7 @@ def draw_pattern(im, res=60):
 # Draw the net created by ES-HyperNEAT
 def draw_es(id_to_coords, connections, filename):
     fig = plt.figure()
+    plt.clf()
     plt.axis([-1.1, 1.1, -1.1, 1.1])
     fig.add_subplot(111)
 
@@ -102,4 +104,5 @@ def draw_es(id_to_coords, connections, filename):
 
     plt.grid()
     fig.savefig(filename)
+    
 
