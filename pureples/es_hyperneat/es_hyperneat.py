@@ -97,7 +97,7 @@ class ESNetwork:
 
     # Initialize the quadtree by dividing it in appropriate quads.
     def division_initialization(self, coord, outgoing):
-        root = QuadPoint(self.root_x, self.root_y, 1.0, 1)
+        root = QuadPoint(self.root_x, self.root_y, self.root_x, 1)
         q = [root]
 
         while q:
@@ -138,7 +138,7 @@ class ESNetwork:
                     else:
                         con = Connection(c.x, c.y, coord[0], coord[1], c.w)
                 if con is not None:
-                    if con not in self.connections and not c.w == 0.0 and con.y1 <= con.y2 and not (con.x1 == con.x2 and con.y1 == con.y2):
+                    if not c.w == 0.0 and con.y1 <= con.y2 and not (con.x1 == con.x2 and con.y1 == con.y2):
                         self.connections.add(con)
 
     # Explores the hidden nodes and their connections.
@@ -149,7 +149,7 @@ class ESNetwork:
         connections1, connections2, connections3 = set(), set(), set()        
 
         for x, y in inputs:  # Explore from inputs.
-            root = self.division_initialization(self.(x, y), True)
+            root = self.division_initialization((x, y), True)
             self.pruning_extraction((x, y), root, True)
             connections1 = connections1.union(self.connections)
             for c in connections1:
