@@ -129,12 +129,12 @@ class ESNetwork:
                 d_top = abs(c.w - query_cppn(coord, (c.x, c.y - p.width), outgoing, self.cppn, self.max_weight))
                 d_bottom = abs(c.w - query_cppn(coord, (c.x, c.y + p.width), outgoing, self.cppn, self.max_weight))
 
-            con = None
-            if max(min(d_top, d_bottom), min(d_left, d_right)) > self.band_threshold:
-                if outgoing:
-                    con = Connection(coord[0], coord[1], c.x, c.y, c.w)
-                else:
-                    con = Connection(c.x, c.y, coord[0], coord[1], c.w)
+                con = None
+                if max(min(d_top, d_bottom), min(d_left, d_right)) > self.band_threshold:
+                    if outgoing:
+                        con = Connection(coord[0], coord[1], c.x, c.y, c.w)
+                    else:
+                        con = Connection(c.x, c.y, coord[0], coord[1], c.w)
             if con is not None:
                 # Nodes will only connect upwards. If connections to same layer is wanted, change to con.y1 <= con.y2.
                 if not c.w == 0.0 and con.y1 < con.y2 and not (con.x1 == con.x2 and con.y1 == con.y2):
