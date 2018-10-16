@@ -135,10 +135,10 @@ class ESNetwork:
                         con = Connection(coord[0], coord[1], c.x, c.y, c.w)
                     else:
                         con = Connection(c.x, c.y, coord[0], coord[1], c.w)
-            if con is not None:
-                # Nodes will only connect upwards. If connections to same layer is wanted, change to con.y1 <= con.y2.
-                if not c.w == 0.0 and con.y1 < con.y2 and not (con.x1 == con.x2 and con.y1 == con.y2):
-                    self.connections.add(con)
+                if con is not None:
+                    # Nodes will only connect upwards. If connections to same layer is wanted, change to con.y1 <= con.y2.
+                    if not c.w == 0.0 and con.y1 < con.y2 and not (con.x1 == con.x2 and con.y1 == con.y2):
+                        self.connections.add(con)
 
     # Explores the hidden nodes and their connections.
     def es_hyperneat(self):
