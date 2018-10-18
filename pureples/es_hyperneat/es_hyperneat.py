@@ -97,7 +97,7 @@ class ESNetwork:
 
     # Initialize the quadtree by dividing it in appropriate quads.
     def division_initialization(self, coord, outgoing):
-        root = QuadPoint(self.root_x, self.root_y, self.root_x, 1)
+        root = QuadPoint(0.0, 0.0, 1.0, 1.0)
         q = [root]
 
         while q:
