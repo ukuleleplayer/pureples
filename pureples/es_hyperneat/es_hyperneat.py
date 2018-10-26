@@ -97,7 +97,10 @@ class ESNetwork:
 
     # Initialize the quadtree by dividing it in appropriate quads.
     def division_initialization(self, coord, outgoing):
-        root = QuadPoint(0.0, 0.0, 1.0, 1.0)
+        pre_cube = ()
+        for x in range(len(coord)):
+            pre_cube += 0.0
+        root = QuadPoint(pre_cube, 1.0, 1.0)
         q = [root]
 
         while q:
@@ -222,9 +225,8 @@ class ESNetwork:
 # Class representing an area in the quadtree defined by a center coordinate and the distance to the edges of the area. 
 class QuadPoint:
 
-    def __init__(self, x, y, width, lvl):
-        self.x = x
-        self.y = y
+    def __init__(self, noncubed_dimensions, width, lvl):
+        self.noncubed = noncubed_dimensions
         self.w = 0.0
         self.width = width
         self.cs = [None] * 4
@@ -232,21 +234,27 @@ class QuadPoint:
 
 
 # Class representing a connection from one point to another with a certain weight.
+
+
+#I am modifying this class to take in coordinates of arbitrary dimnesionality
+
 class Connection:
     
-    def __init__(self, x1, y1, x2, y2, weight):
-        self.x1 = x1
-        self.y1 = y1
-        self.x2 = x2
-        self.y2 = y2
+    def __init__(self, coords, weight):
+        self.coord_one = coords[0]
+        self.coord_two = coords[1]
         self.weight = weight
 
     # Below is needed for use in set.
     def __eq__(self,other):
-        return self.x1, self.y1, self.x2, self.y2 == other.x1, other.y1, other.x2, other.y2
+        return self.coord_one, self.coord_two == other[0], other[1]
 
     def __hash__(self):
-        return hash((self.x1, self.y1, self.x2, self.y2, self.weight))
+        hash_list = ()
+        for x in range(len(self.coord_one)):
+            hash_list += x
+        hash_list += self.weight
+        return hash(hash_list)
 
 
 # From a given point, query the cppn for weights to all other points. This can be visualized as a connectivity pattern.
