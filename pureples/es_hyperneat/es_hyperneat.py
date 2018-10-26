@@ -105,7 +105,14 @@ class ESNetwork:
 
         while q:
             p = q.pop(0)
-            
+            sectors = {
+                0: (),
+                1: (),
+                2: (),
+                3: (),
+            }
+            for x in range(len(coords)):
+                sectors[0] += p.noncubed[x] 
             p.cs[0] = QuadPoint(p.x - p.width/2.0, p.y - p.width/2.0, p.width/2.0, p.lvl + 1)
             p.cs[1] = QuadPoint(p.x - p.width/2.0, p.y + p.width/2.0, p.width/2.0, p.lvl + 1)
             p.cs[2] = QuadPoint(p.x + p.width/2.0, p.y + p.width/2.0, p.width/2.0, p.lvl + 1)
