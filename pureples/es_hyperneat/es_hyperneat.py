@@ -3,7 +3,7 @@ import copy
 import numpy as np
 from pureples.hyperneat.hyperneat import query_cppn
 from pureples.shared.visualize import draw_es
-
+from math import factorial
 
 class ESNetwork:
 
@@ -24,6 +24,18 @@ class ESNetwork:
         self.width = len(substrate.output_coordinates)
         self.root_x = self.width/2
         self.root_y = (len(substrate.input_coordinates)/self.width)/2
+        
+        #finds num of hypercubes of m dimensions on the boundary of a n dimensional hypercube
+    def find_sub_hypercubes(self, n, m):
+        #we will assume its been scaled into a unit hypercube
+        if(m == n):
+            return 1 #someone trying to find number of thing inside thing, that just one thing sir
+        diff = n - m
+        diff_factorial = factorial(diff)
+        search_factorial = factorial(n)
+        sub_factorial = factorial(m)
+        num_subs = (2**diff)*(search_factorial/(diff_factorial*sub_factorial))
+        return num_subs
         
     # Create a RecurrentNetwork using the ES-HyperNEAT approach.
     def create_phenotype_network(self, filename=None):
@@ -97,22 +109,12 @@ class ESNetwork:
 
     # Initialize the quadtree by dividing it in appropriate quads.
     def division_initialization(self, coord, outgoing):
-        pre_cube = ()
-        for x in range(len(coord)):
-            pre_cube += 0.0
-        root = QuadPoint(pre_cube, 1.0, 1.0)
+        root = QuadPoint(0.0, 0.0, 1.0, 1.0)
         q = [root]
 
         while q:
             p = q.pop(0)
-            sectors = {
-                0: (),
-                1: (),
-                2: (),
-                3: (),
-            }
-            for x in range(len(coords)):
-                sectors[0] += p.noncubed[x] 
+            
             p.cs[0] = QuadPoint(p.x - p.width/2.0, p.y - p.width/2.0, p.width/2.0, p.lvl + 1)
             p.cs[1] = QuadPoint(p.x - p.width/2.0, p.y + p.width/2.0, p.width/2.0, p.lvl + 1)
             p.cs[2] = QuadPoint(p.x + p.width/2.0, p.y + p.width/2.0, p.width/2.0, p.lvl + 1)
@@ -232,8 +234,9 @@ class ESNetwork:
 # Class representing an area in the quadtree defined by a center coordinate and the distance to the edges of the area. 
 class QuadPoint:
 
-    def __init__(self, noncubed_dimensions, width, lvl):
-        self.noncubed = noncubed_dimensions
+    def __init__(self, x, y, width, lvl):
+        self.x = x
+        self.y = y
         self.w = 0.0
         self.width = width
         self.cs = [None] * 4
@@ -241,27 +244,21 @@ class QuadPoint:
 
 
 # Class representing a connection from one point to another with a certain weight.
-
-
-#I am modifying this class to take in coordinates of arbitrary dimnesionality
-
 class Connection:
     
-    def __init__(self, coords, weight):
-        self.coord_one = coords[0]
-        self.coord_two = coords[1]
+    def __init__(self, x1, y1, x2, y2, weight):
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
         self.weight = weight
 
     # Below is needed for use in set.
     def __eq__(self,other):
-        return self.coord_one, self.coord_two == other[0], other[1]
+        return self.x1, self.y1, self.x2, self.y2 == other.x1, other.y1, other.x2, other.y2
 
     def __hash__(self):
-        hash_list = ()
-        for x in range(len(self.coord_one)):
-            hash_list += x
-        hash_list += self.weight
-        return hash(hash_list)
+        return hash((self.x1, self.y1, self.x2, self.y2, self.weight))
 
 
 # From a given point, query the cppn for weights to all other points. This can be visualized as a connectivity pattern.
