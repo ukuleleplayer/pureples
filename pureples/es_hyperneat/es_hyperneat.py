@@ -107,8 +107,20 @@ class ESNetwork:
             return 0.0
         return np.var(self.get_weights(p))
 
+
+    def division_initialization(self, coord, outgoing):
+        dimen = len(coord)
+        root_coord = []
+        for s in range(dimen):
+            root_coord.append(0.0)
+        for s in range(dimen):
+            root_coord.append(1.0)
+        root = QuadPointND(root_coord)
+        q = [root]
+        while q:
+            p = q.pop(0)
+            for x in range(dimen*2)
     # Initialize the quadtree by dividing it in appropriate quads.
-    def division_initialization(self, c)
     def division_initialization(self, coord, outgoing):
         root = QuadPoint(0.0, 0.0, 1.0, 1.0)
         q = [root]
