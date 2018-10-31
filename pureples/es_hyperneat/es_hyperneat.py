@@ -108,6 +108,7 @@ class ESNetwork:
         return np.var(self.get_weights(p))
 
     # Initialize the quadtree by dividing it in appropriate quads.
+    def division_initialization(self, c)
     def division_initialization(self, coord, outgoing):
         root = QuadPoint(0.0, 0.0, 1.0, 1.0)
         q = [root]
@@ -242,7 +243,13 @@ class QuadPoint:
         self.cs = [None] * 4
         self.lvl = lvl
 
-
+class QuadTreeND:
+    
+    def __init__(self, in_coords):
+        self.w = 0.0
+        self.coords = in_coords
+        self.cs = [None]*4
+    
 # Class representing a connection from one point to another with a certain weight.
 class Connection:
     
