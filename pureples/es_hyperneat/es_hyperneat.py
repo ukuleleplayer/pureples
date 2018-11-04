@@ -36,7 +36,7 @@ class ESNetwork:
         sub_factorial = factorial(m)
         num_subs = (2**diff)*(search_factorial/(diff_factorial*sub_factorial))
         return num_subs
-        
+
     # Create a RecurrentNetwork using the ES-HyperNEAT approach.
     def create_phenotype_network(self, filename=None):
         input_coordinates = self.substrate.input_coordinates
@@ -112,20 +112,27 @@ class ESNetwork:
         dimen = len(coord)
         root_coord = []
         #we will loop twice the length of the substrate coord
-        #we will set the value of all coords 
-        for s in range(dimen*2):
+        #we set the root of our tree to  zero index coord in the dimension of the input coord
+        #we need a n-tree with n being 2^coordlength so that we can split each dimension in a cartesian manner
+        for s in range(dimen+2):
             if(s < dimen):
                 root_coord.append(0.0)
             else:
+                #set width and level to one and instruct users to pass coords that 
+                # are scaled to be within the unit hypercube of that dimension*2
                 root_coord.append(1.0)
-        root = QuadPointND(root_coord)
+        root = QuadTreeND(root_coord)
         q = [root]
         while q:
             p = q.pop(0)
-            for x in range(dimen*2):
-                coord = []
-                for y in range(dimen*2):
-                    
+            # here we will subdivide to 2^coordlength as described above
+            # this allows us to search from +- midpoints on each axis of the input coord
+            sign = 1 #this will alternate
+            for x in range(2**dimen):
+                sign = sign * -1
+                
+
+
     # Initialize the quadtree by dividing it in appropriate quads.
     def division_initialization(self, coord, outgoing):
         root = QuadPoint(0.0, 0.0, 1.0, 1.0)
@@ -173,7 +180,7 @@ class ESNetwork:
                         self.connections.add(con)
 
     # Explores the hidden nodes and their connections.
-    def es_hyperneat(self):
+    def es_hyperneat_nd(self):
         inputs = self.substrate.input_coordinates
         outputs = self.substrate.output_coordinates
         hidden_nodes, unexplored_hidden_nodes = set(), set()
@@ -274,9 +281,11 @@ class QuadPoint:
 
 class QuadTreeND:
     
-    def __init__(self, in_coords):
+    def __init__(self, in_coords, width, level):
         self.w = 0.0
-        self.coords = in_coords
+        self.coords = in_coords[:-2]
+        self.width = in_coords[-2]
+        self.lvl = in_coords[-1]
         self.cs = [None]*4
     
 # Class representing a connection from one point to another with a certain weight.
