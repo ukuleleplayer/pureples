@@ -111,10 +111,13 @@ class ESNetwork:
     def division_initialization_nd(self, coord, outgoing):
         dimen = len(coord)
         root_coord = []
-        for s in range(dimen):
-            root_coord.append(0.0)
-        for s in range(dimen):
-            root_coord.append(1.0)
+        #we will loop twice the length of the substrate coord
+        #we will set the value of all coords 
+        for s in range(dimen*2):
+            if(s < dimen):
+                root_coord.append(0.0)
+            else:
+                root_coord.append(1.0)
         root = QuadPointND(root_coord)
         q = [root]
         while q:
@@ -170,6 +173,17 @@ class ESNetwork:
                         self.connections.add(con)
 
     # Explores the hidden nodes and their connections.
+    def es_hyperneat(self):
+        inputs = self.substrate.input_coordinates
+        outputs = self.substrate.output_coordinates
+        hidden_nodes, unexplored_hidden_nodes = set(), set()
+        connections1, connections2, connections3 = set(), set(), set()
+        
+        for i in range(len(inputs)):
+            root = self.division_initialization_nd(inputs[i], True)
+            self.pruning_extraction_nd(inputs[i], root, True)
+            
+    
     def es_hyperneat(self):
         inputs = self.substrate.input_coordinates
         outputs = self.substrate.output_coordinates
