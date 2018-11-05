@@ -1,6 +1,7 @@
 import neat 
 import copy
 import numpy as np
+import itertools
 from pureples.hyperneat.hyperneat import query_cppn
 from pureples.shared.visualize import draw_es
 from math import factorial
@@ -114,22 +115,24 @@ class ESNetwork:
         #we will loop twice the length of the substrate coord
         #we set the root of our tree to  zero index coord in the dimension of the input coord
         #we need a n-tree with n being 2^coordlength so that we can split each dimension in a cartesian manner
-        for s in range(dimen+2):
-            if(s < dimen):
-                root_coord.append(0.0)
-            else:
-                #set width and level to one and instruct users to pass coords that 
-                # are scaled to be within the unit hypercube of that dimension*2
-                root_coord.append(1.0)
-        root = QuadTreeND(root_coord)
+        for s in range(dimen):
+            root_coord.append(0.0)
+        #set width and level to 1.0 and 1, assume the substrate been scaled to a unit hypercube
+        root = nDimensionTree(root_coord, 1.0, 1)
         q = [root]
         while q:
             p = q.pop(0)
             # here we will subdivide to 2^coordlength as described above
             # this allows us to search from +- midpoints on each axis of the input coord
-            sign = 1 #this will alternate
-            for x in range(2**dimen):
-                sign = sign * -1
+            p.divide_childrens()
+            for c in p.cs:
+                c.w = query_cppn(coord, p.coord, outgoing, self.cppn, self.max_weight)
+            
+            if (p.lvl < self.initial_depth) or (p.lvl < self.max_depth and self.variance(p) > self.division_threshold):
+                for child in p.cs:
+                    q.append(child)
+
+        return root
                 
 
 
@@ -279,14 +282,28 @@ class QuadPoint:
         self.cs = [None] * 4
         self.lvl = lvl
 
-class QuadTreeND:
+#
+class nDimensionTree:
     
-    def __init__(self, in_coords, width, level):
+    def __init__(self, in_coord, width, level):
         self.w = 0.0
-        self.coords = in_coords[:-2]
-        self.width = in_coords[-2]
-        self.lvl = in_coords[-1]
-        self.cs = [None]*4
+        self.coord = in_coord
+        self.width = width
+        self.lvl = level
+        self.num_children = 2**len(self.coord)
+        self.cs = [None] * self.num_children
+        self.signs = self.set_signs()
+        print(self.signs)
+    def set_signs(self):
+        return list(itertools.product([1,-1], repeat=len(self.coord)))
+    
+    def divide_childrens(self):
+        for x in range(self.num_children):
+            new_coord = []
+            for y in range(len(self.coord)):
+                new_coord.append(self.coord[y] + (self.width/(2*self.signs[x])))
+            newby = nDimensionTree(new_coord, self.width/2, self.lvl+1)
+            self.cs.append(newby)
     
 # Class representing a connection from one point to another with a certain weight.
 class Connection:
