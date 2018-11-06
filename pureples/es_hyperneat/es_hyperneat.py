@@ -134,7 +134,8 @@ class ESNetwork:
 
         return root
                 
-
+    def pruning_extraction_nd(self, coord, coord2, outgoing):
+        
 
     # Initialize the quadtree by dividing it in appropriate quads.
     def division_initialization(self, coord, outgoing):
