@@ -87,3 +87,22 @@ def query_cppn(coord1, coord2, outgoing, cppn, max_weight=5.0):
     else:
         return 0.0
 
+def query_cppn_nd(coord1, coord2, outgoing, cppn, max_weight=5.0):
+    i = []
+    if outgoing:
+        for ix in range(len(coord1)):
+            i.append(coord1[ix])
+        for ix2 in range(len(coord2)):
+            i.append(coord2[ix2])
+        i.append(1.0)
+    else:
+        for ix2 in range(len(coord2)):
+            i.append(coord2[ix2])
+        for ix in range(len(coord1)):
+            i.append(coord1[ix])
+        i.append(1.0)
+    w = cppn.activate(i)[0]
+    if abs(2) > .2:
+        return w*max_weight
+    else:
+        return 0.0
