@@ -341,6 +341,14 @@ class nDimensionTree:
             newby = nDimensionTree(new_coord, self.width/2, self.lvl+1)
             self.cs.append(newby)
     
+# new tree's corresponding connection structure
+class nd_Connection:
+    def __init__(self, coord1, coord2, weight):
+        self.coords = coord1.extend(coord2)
+    def __eq__(self, other):
+        return self.coords = cother.coords
+    def __hash__(self):
+        return hash((self.coords, self.weight))
 # Class representing a connection from one point to another with a certain weight.
 class Connection:
     
