@@ -135,7 +135,7 @@ class ESNetwork:
         return root
                 
     def pruning_extraction_nd(self, coord, coord2, outgoing):
-        
+
 
     # Initialize the quadtree by dividing it in appropriate quads.
     def division_initialization(self, coord, outgoing):
@@ -158,6 +158,17 @@ class ESNetwork:
                     q.append(child)
 
         return root
+    # n-dimensional pruning and extradition
+    def prune_all_the_dimensions(self, coord, p, outgoing):
+        for c in p.cs:
+            child_array = [None] * len(p.cs)
+            if self.variance(c) > self.variance_threshold:
+                self.pruning_extraction(coord, c, outgoing)
+            else:
+                c_len = len(child_array)
+                for c_index in range(c_len):
+                    c = p.cs[c_index]
+                    child_array[c_index] = abs(c.w - query_cppn_nd(coord, ))
 
     # Determines which connections to express - high variance = more connetions.
     def pruning_extraction(self, coord, p, outgoing):
