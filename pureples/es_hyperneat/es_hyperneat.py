@@ -171,21 +171,28 @@ class ESNetwork:
                     query_coord = []
                     query_coord2 = []
                     dimen = c.coord[i] - c.width
-                    dimen2 = c.coor[i] + c.width
+                    dimen2 = c.coord[i] + c.width
                     for x in range(len(coord)):
                         if x != i:
                             query_coord.append(c.coord[x])
                             query_coord2.append(c.coord[x])
                         else:
                             query_coord.append(dimen2)
-                            query_coord.append(dimen)
-                    child_array.append(abs(c.w - query_cppn_nd(coord, query_coord, outgoing, self.cppn, self.max_weight=)))
+                            query_coord2.append(dimen)
+                    child_array.append(abs(c.w - query_cppn_nd(coord, query_coord, outgoing, self.cppn, self.max_weight)))
+                    child_array.append(abs(c.w - query_cppn_nd(coord, query_coord2, outgoing, self.cppn, self.max_weight)))
                 con = None
-                if
-
-
-
-
+                max_val = 0.0
+                for new_ix in range(len(c.coord)):
+                    if(min(child_array[new_ix], child_array[new_ix+1]) > max_val):
+                        max_val = min(child_array[new_ix], child_array[new_ix+1])
+                if max_val > self.band_threshold:
+                    if outgoing:
+                        con = nd_Connection(coord, c.coord)
+                    else:
+                        con = nd_Connection(c.coord, coord)
+                if con is not None:
+                    self.connections.add(con)
 
     # Determines which connections to express - high variance = more connetions.
     def pruning_extraction(self, coord, p, outgoing):
