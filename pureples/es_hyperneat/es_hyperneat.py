@@ -133,8 +133,6 @@ class ESNetwork:
                     q.append(child)
 
         return root
-                
-    def pruning_extraction_nd(self, coord, coord2, outgoing):
 
 
     # Initialize the quadtree by dividing it in appropriate quads.
@@ -192,7 +190,8 @@ class ESNetwork:
                     else:
                         con = nd_Connection(c.coord, coord)
                 if con is not None:
-                    self.connections.add(con)
+                    if not c.w == 0.0:
+                        self.connections.add(con)
 
     # Determines which connections to express - high variance = more connetions.
     def pruning_extraction(self, coord, p, outgoing):
@@ -228,6 +227,32 @@ class ESNetwork:
         for i in range(len(inputs)):
             root = self.division_initialization_nd(inputs[i], True)
             self.pruning_extraction_nd(inputs[i], root, True)
+            connections1 = connections1.union(self.connections)
+            for c in connections1:
+                hidden_nodes.add(c.coord2)
+            self.connections = set()
+
+        unexplored_hidden_nodes = copy.deepcopy(hidden_nodes)
+
+        for i in range(self.iteration_level):
+            for index_coord in range(len(unexplored_hidden_nodes)):
+                coord = unexplored_hidden_nodes[index_coord]
+                root = self.division_initialization_nd(coord, True)
+                self.prune_all_the_dimensions(coord, root, True)
+                connections2 = connections2.union(self.connections)
+                for c in connections2:
+                    hidden_nodes.add(c.coord2)
+                self.connections = set()
+        
+        unexplored_hidden_nodes -= hidden_nodes
+        
+        for c_index in range(len(outputs)):
+            root = self.division_initialization_nd(outputs[c_index], False)
+            self.prune_all_the_dimensions(outputs[c_index], False)
+            connections3 = connections3.union(self.connections)
+            self.connections = set()
+        connections = connections1.union(connections2.union(connections3))
+        return self.clean_net(connections)
             
     
     def es_hyperneat(self):
@@ -345,8 +370,10 @@ class nDimensionTree:
 class nd_Connection:
     def __init__(self, coord1, coord2, weight):
         self.coords = coord1.extend(coord2)
+        self.weight = weight
+        self.coord2 = coord2
     def __eq__(self, other):
-        return self.coords = cother.coords
+        return self.coords = other.coords
     def __hash__(self):
         return hash((self.coords, self.weight))
 # Class representing a connection from one point to another with a certain weight.
