@@ -252,7 +252,7 @@ class ESNetwork:
             connections3 = connections3.union(self.connections)
             self.connections = set()
         connections = connections1.union(connections2.union(connections3))
-        return self.clean_net(connections)
+        return self.clean_n_dimensional(connections)
             
     
     def es_hyperneat(self):
@@ -292,6 +292,40 @@ class ESNetwork:
 
         return self.clean_net(connections)
 
+    # clean n dimensional net
+    def clean_n_dimensional(self, connections):
+        connect_to_inputs = set(tuple(i) for i in self.substrate.input_coordinates)
+        connect_to_outputs = set(tuple(i) for i in self.substrate.output_coordinates)
+        true_connections = set()
+        initial_input_connections = copy.deepcopy(connections)
+        initial_output_connections = copy.deepcopy(connections)
+        
+        add_happened = True
+        while add_happened:
+            add_happened = False
+            temp_input_connections = copy.deepcopy(initial_input_connections)
+            for c in temp_input_connections:
+                if c.coord1 in connected_to_inputs:
+                    connected_to_inputs.add(c.coord2)
+                    initial_input_connections.remove(c)
+                    add_happened = True
+        add_happened = True
+        while add_happened:
+            add_happened = False
+            temp_output_connections = copy.deepcopy(initial_output_connections)
+            for c in temp_output_connections:
+                if c.coord2 in connected_to_outputs:
+                    connected_to_outputs.add(c.coord1)
+                    initial_output_connections.remove(c)
+                    add_happened = True
+        true_nodes = connected_to_inputs.intersection(connected_to_outputs)
+        for c in connections:
+            if (c.coord1 in true_nodes) and (c.coord2 in true_nodes):
+                true_connections.add(c)
+        true_nodes -= (set(self.substrate.input_coordinates).union(set(self.substrate.output_coordinates)))
+        return true_nodes, true_connections
+        
+        
     # Clean a net for dangling connections by intersecting paths from input nodes with paths to output.
     def clean_net(self, connections):
         connected_to_inputs = set(tuple(i) for i in self.substrate.input_coordinates)
@@ -369,6 +403,7 @@ class nDimensionTree:
 # new tree's corresponding connection structure
 class nd_Connection:
     def __init__(self, coord1, coord2, weight):
+        self.coord1 = coord1
         self.coords = coord1.extend(coord2)
         self.weight = weight
         self.coord2 = coord2
