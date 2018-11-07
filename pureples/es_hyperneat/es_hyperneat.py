@@ -2,7 +2,7 @@ import neat
 import copy
 import numpy as np
 import itertools
-from pureples.hyperneat.hyperneat import query_cppn
+from pureples.hyperneat.hyperneat import query_cppn, query_cppn_nd
 from pureples.shared.visualize import draw_es
 from math import factorial
 
@@ -163,12 +163,29 @@ class ESNetwork:
         for c in p.cs:
             child_array = [None] * len(p.cs)
             if self.variance(c) > self.variance_threshold:
-                self.pruning_extraction(coord, c, outgoing)
+                self.pruning_all_the_dimensions(coord, c, outgoing)
             else:
                 c_len = len(child_array)
-                for c_index in range(c_len):
-                    c = p.cs[c_index]
-                    child_array[c_index] = abs(c.w - query_cppn_nd(coord, ))
+                sign = 1
+                for i in range(len(c.coord)):
+                    query_coord = []
+                    query_coord2 = []
+                    dimen = c.coord[i] - c.width
+                    dimen2 = c.coor[i] + c.width
+                    for x in range(len(coord)):
+                        if x != i:
+                            query_coord.append(c.coord[x])
+                            query_coord2.append(c.coord[x])
+                        else:
+                            query_coord.append(dimen2)
+                            query_coord.append(dimen)
+                    child_array.append(abs(c.w - query_cppn_nd(coord, query_coord, outgoing, self.cppn, self.max_weight=)))
+                con = None
+                if
+
+
+
+
 
     # Determines which connections to express - high variance = more connetions.
     def pruning_extraction(self, coord, p, outgoing):
