@@ -64,7 +64,7 @@ class ESNetwork:
         for cs in hidden_nodes:
             coords_to_id[cs] = hidden_idx
             hidden_idx += 1
-        for cs, idx in hidden_nodes:
+        for cs, idx in coords_to_id.items():
             for c in connections:
                 if c.coord2 == cs:
                     draw_connections.append(c)
@@ -139,8 +139,9 @@ class ESNetwork:
 
         def loop(pp):
             if pp is not None and all(child is not None for child in pp.cs):
-                for i in range(0, 4):
-                    loop(pp.cs[i])
+                if len(pp.cs) > 0:
+                    for i in range(0, pp.num_children):
+                        loop(pp.cs[i])
             else:
                 if pp is not None:
                     temp.append(pp.w)
@@ -171,7 +172,7 @@ class ESNetwork:
             # this allows us to search from +- midpoints on each axis of the input coord
             p.divide_childrens()
             for c in p.cs:
-                c.w = query_cppn(coord, p.coord, outgoing, self.cppn, self.max_weight)
+                c.w = query_cppn_nd(coord, p.coord, outgoing, self.cppn, self.max_weight)
             
             if (p.lvl < self.initial_depth) or (p.lvl < self.max_depth and self.variance(p) > self.division_threshold):
                 for child in p.cs:
@@ -204,9 +205,9 @@ class ESNetwork:
     # n-dimensional pruning and extradition
     def prune_all_the_dimensions(self, coord, p, outgoing):
         for c in p.cs:
-            child_array = [None] * len(p.cs)
+            child_array = []
             if self.variance(c) > self.variance_threshold:
-                self.pruning_all_the_dimensions(coord, c, outgoing)
+                self.prune_all_the_dimensions(coord, c, outgoing)
             else:
                 c_len = len(child_array)
                 sign = 1
@@ -226,14 +227,15 @@ class ESNetwork:
                     child_array.append(abs(c.w - query_cppn_nd(coord, query_coord2, outgoing, self.cppn, self.max_weight)))
                 con = None
                 max_val = 0.0
-                for new_ix in range(len(c.coord)):
+                cntrl = len(child_array)-1
+                for new_ix in range(cntrl):
                     if(min(child_array[new_ix], child_array[new_ix+1]) > max_val):
                         max_val = min(child_array[new_ix], child_array[new_ix+1])
                 if max_val > self.band_threshold:
                     if outgoing:
-                        con = nd_Connection(coord, c.coord)
+                        con = nd_Connection(coord, c.coord, c.w)
                     else:
-                        con = nd_Connection(c.coord, coord)
+                        con = nd_Connection(c.coord, coord, c.w)
                 if con is not None:
                     if not c.w == 0.0:
                         self.connections.add(con)
@@ -269,31 +271,30 @@ class ESNetwork:
         hidden_nodes, unexplored_hidden_nodes = set(), set()
         connections1, connections2, connections3 = set(), set(), set()
         
-        for i in range(len(inputs)):
-            root = self.division_initialization_nd(inputs[i], True)
-            self.pruning_extraction_nd(inputs[i], root, True)
+        for i in inputs:
+            root = self.division_initialization_nd(i, True)
+            self.prune_all_the_dimensions(i, root, True)
             connections1 = connections1.union(self.connections)
             for c in connections1:
-                hidden_nodes.add(c.coord2)
+                hidden_nodes.add(tuple(c.coord2))
             self.connections = set()
 
         unexplored_hidden_nodes = copy.deepcopy(hidden_nodes)
 
         for i in range(self.iteration_level):
-            for index_coord in range(len(unexplored_hidden_nodes)):
-                coord = unexplored_hidden_nodes[index_coord]
-                root = self.division_initialization_nd(coord, True)
-                self.prune_all_the_dimensions(coord, root, True)
+            for index_coord in unexplored_hidden_nodes:
+                root = self.division_initialization_nd(index_coord, True)
+                self.prune_all_the_dimensions(index_coord, root, True)
                 connections2 = connections2.union(self.connections)
                 for c in connections2:
-                    hidden_nodes.add(c.coord2)
+                    hidden_nodes.add(tuple(c.coord2))
                 self.connections = set()
         
         unexplored_hidden_nodes -= hidden_nodes
         
         for c_index in range(len(outputs)):
             root = self.division_initialization_nd(outputs[c_index], False)
-            self.prune_all_the_dimensions(outputs[c_index], False)
+            self.prune_all_the_dimensions(outputs[c_index], root, False)
             connections3 = connections3.union(self.connections)
             self.connections = set()
         connections = connections1.union(connections2.union(connections3))
@@ -350,8 +351,8 @@ class ESNetwork:
             add_happened = False
             temp_input_connections = copy.deepcopy(initial_input_connections)
             for c in temp_input_connections:
-                if c.coord1 in connected_to_inputs:
-                    connected_to_inputs.add(c.coord2)
+                if c.coord1 in connect_to_inputs:
+                    connect_to_inputs.add(c.coord2)
                     initial_input_connections.remove(c)
                     add_happened = True
         add_happened = True
@@ -359,11 +360,11 @@ class ESNetwork:
             add_happened = False
             temp_output_connections = copy.deepcopy(initial_output_connections)
             for c in temp_output_connections:
-                if c.coord2 in connected_to_outputs:
-                    connected_to_outputs.add(c.coord1)
+                if c.coord2 in connect_to_outputs:
+                    connect_to_outputs.add(c.coord1)
                     initial_output_connections.remove(c)
                     add_happened = True
-        true_nodes = connected_to_inputs.intersection(connected_to_outputs)
+        true_nodes = connect_to_inputs.intersection(connect_to_outputs)
         for c in connections:
             if (c.coord1 in true_nodes) and (c.coord2 in true_nodes):
                 true_connections.add(c)
@@ -431,9 +432,9 @@ class nDimensionTree:
         self.width = width
         self.lvl = level
         self.num_children = 2**len(self.coord)
-        self.cs = [None] * self.num_children
+        self.cs = []
         self.signs = self.set_signs()
-        print(self.signs)
+        #print(self.signs)
     def set_signs(self):
         return list(itertools.product([1,-1], repeat=len(self.coord)))
     
@@ -441,21 +442,25 @@ class nDimensionTree:
         for x in range(self.num_children):
             new_coord = []
             for y in range(len(self.coord)):
-                new_coord.append(self.coord[y] + (self.width/(2*self.signs[x])))
+                new_coord.append(self.coord[y] + (self.width/(2*self.signs[x][y])))
             newby = nDimensionTree(new_coord, self.width/2, self.lvl+1)
             self.cs.append(newby)
     
 # new tree's corresponding connection structure
 class nd_Connection:
     def __init__(self, coord1, coord2, weight):
+        if(type(coord1) == list):
+            coord1 = tuple(coord1)
+        if(type(coord2) == list):
+            coord2 = tuple(coord2)
         self.coord1 = coord1
-        self.coords = coord1.extend(coord2)
+        self.coords = coord1 + coord2
         self.weight = weight
         self.coord2 = coord2
     def __eq__(self, other):
-        return self.coords = other.coords
+        return self.coords == other.coords
     def __hash__(self):
-        return hash((self.coords, self.weight))
+        return hash(self.coords + (self.weight,))
 # Class representing a connection from one point to another with a certain weight.
 class Connection:
     
