@@ -37,7 +37,52 @@ class ESNetwork:
         sub_factorial = factorial(m)
         num_subs = (2**diff)*(search_factorial/(diff_factorial*sub_factorial))
         return num_subs
+    
+    # creates phenotype with n dimensions
+    def create_phenotype_network_nd(self, filename=None):
+        input_coordinates = self.substrate.input_coordinates
+        output_coordinates = self.substrate.output_coordinates
 
+        input_nodes = range(len(input_coordinates))
+        output_nodes = range(len(input_nodes), len(input_nodes)+len(output_coordinates))
+        hidden_idx = len(input_coordinates)+len(output_coordinates)
+
+        coordinates, indices, draw_connections, node_evals = [], [], [], []
+        nodes = {}
+
+        coordinates.extend(input_coordinates)
+        coordinates.extend(output_coordinates)
+        indices.extend(input_nodes)
+        indices.extend(output_nodes)
+       
+        # Map input and output coordinates to their IDs. 
+        coords_to_id = dict(zip(coordinates, indices))
+        
+        # Where the magic happens.
+        hidden_nodes, connections = self.es_hyperneat_nd()
+        
+        for cs in hidden_nodes:
+            coords_to_id[cs] = hidden_idx
+            hidden_idx += 1
+        for cs, idx in hidden_nodes:
+            for c in connections:
+                if c.coord2 == cs:
+                    draw_connections.append(c)
+                    if idx in nodes:
+                        initial = nodes[idx]
+                        initial.append((coords_to_id[c.coord1], c.weight))
+                        nodes[idx] = initial
+                    else:
+                        nodes[idx] = [(coords_to_id[c.coord1], c.weight)]
+                        
+        for idx, links in nodes.items():
+            node_evals.append((idx, self.activation, sum, 0.0, 1.0, links))
+                    
+        # Visualize the network?
+        if filename is not None:
+            draw_es(coords_to_id, draw_connections, filename)
+        return neat.nn.RecurrentNetwork(input_nodes, output_nodes, node_evals)
+        
     # Create a RecurrentNetwork using the ES-HyperNEAT approach.
     def create_phenotype_network(self, filename=None):
         input_coordinates = self.substrate.input_coordinates
