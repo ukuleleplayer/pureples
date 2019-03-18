@@ -1,4 +1,4 @@
-import neat 
+import neat
 import copy
 import numpy as np
 from pureples.hyperneat.hyperneat import query_cppn
@@ -38,10 +38,10 @@ class ESNetwork:
         coordinates.extend(output_coordinates)
         indices.extend(input_nodes)
         indices.extend(output_nodes)
-       
-        # Map input and output coordinates to their IDs. 
+
+        # Map input and output coordinates to their IDs.
         coords_to_id = dict(zip(coordinates, indices))
-        
+
         # Where the magic happens.
         hidden_nodes, connections = self.es_hyperneat()
 
@@ -65,7 +65,7 @@ class ESNetwork:
         # Combine the indices with the connections/links forming node_evals used by the RecurrentNetwork.
         for idx, links in nodes.iteritems():
             node_evals.append((idx, self.activation, sum, 0.0, 1.0, links))
-                    
+
         # Visualize the network?
         if filename is not None:
             draw_es(coords_to_id, draw_connections, filename)
@@ -100,7 +100,7 @@ class ESNetwork:
 
         while q:
             p = q.pop(0)
-            
+
             p.cs[0] = QuadPoint(p.x - p.width/2.0, p.y - p.width/2.0, p.width/2.0, p.lvl + 1)
             p.cs[1] = QuadPoint(p.x - p.width/2.0, p.y + p.width/2.0, p.width/2.0, p.lvl + 1)
             p.cs[2] = QuadPoint(p.x + p.width/2.0, p.y + p.width/2.0, p.width/2.0, p.lvl + 1)
@@ -108,7 +108,7 @@ class ESNetwork:
 
             for c in p.cs:
                 c.w = query_cppn(coord, (c.x, c.y), outgoing, self.cppn, self.max_weight)
-            
+
             if (p.lvl < self.initial_depth) or (p.lvl < self.max_depth and self.variance(p) > self.division_threshold):
                 for child in p.cs:
                     q.append(child)
@@ -129,23 +129,23 @@ class ESNetwork:
                 d_top = abs(c.w - query_cppn(coord, (c.x, c.y - p.width), outgoing, self.cppn, self.max_weight))
                 d_bottom = abs(c.w - query_cppn(coord, (c.x, c.y + p.width), outgoing, self.cppn, self.max_weight))
 
-            con = None
-            if max(min(d_top, d_bottom), min(d_left, d_right)) > self.band_threshold:
-                if outgoing:
-                    con = Connection(coord[0], coord[1], c.x, c.y, c.w)
-                else:
-                    con = Connection(c.x, c.y, coord[0], coord[1], c.w)
-            if con is not None:
-                # Nodes will only connect upwards. If connections to same layer is wanted, change to con.y1 <= con.y2.
-                if not c.w == 0.0 and con.y1 < con.y2 and not (con.x1 == con.x2 and con.y1 == con.y2):
-                    self.connections.add(con)
+                con = None
+                if max(min(d_top, d_bottom), min(d_left, d_right)) > self.band_threshold:
+                    if outgoing:
+                        con = Connection(coord[0], coord[1], c.x, c.y, c.w)
+                    else:
+                        con = Connection(c.x, c.y, coord[0], coord[1], c.w)
+                if con is not None:
+                    # Nodes will only connect upwards. If connections to same layer is wanted, change to con.y1 <= con.y2.
+                    if not c.w == 0.0 and con.y1 < con.y2 and not (con.x1 == con.x2 and con.y1 == con.y2):
+                        self.connections.add(con)
 
     # Explores the hidden nodes and their connections.
     def es_hyperneat(self):
         inputs = self.substrate.input_coordinates
         outputs = self.substrate.output_coordinates
         hidden_nodes, unexplored_hidden_nodes = set(), set()
-        connections1, connections2, connections3 = set(), set(), set()        
+        connections1, connections2, connections3 = set(), set(), set()
 
         for x, y in inputs:  # Explore from inputs.
             root = self.division_initialization((x, y), True)
@@ -156,7 +156,7 @@ class ESNetwork:
             self.connections = set()
 
         unexplored_hidden_nodes = copy.deepcopy(hidden_nodes)
-        
+
         for i in range(self.iteration_level):  # Explore from hidden.
             for x, y in unexplored_hidden_nodes:
                 root = self.division_initialization((x, y), True)
@@ -165,11 +165,11 @@ class ESNetwork:
                 for c in connections2:
                     hidden_nodes.add((c.x2, c.y2))
                 self.connections = set()
-        
+
         unexplored_hidden_nodes -= hidden_nodes
 
         for x, y in outputs:  # Explore to outputs.
-            root = self.division_initialization((x, y), False)      
+            root = self.division_initialization((x, y), False)
             self.pruning_extraction((x, y), root, False)
             connections3 = connections3.union(self.connections)
             self.connections = set()
@@ -199,26 +199,26 @@ class ESNetwork:
 
         add_happened = True
         while add_happened:  # The path to outputs.
-            add_happened = False      
+            add_happened = False
             temp_output_connections = copy.deepcopy(initial_output_connections)
             for c in temp_output_connections:
                 if (c.x2, c.y2) in connected_to_outputs:
                     connected_to_outputs.add((c.x1, c.y1))
                     initial_output_connections.remove(c)
                     add_happened = True
-        
+
         true_nodes = connected_to_inputs.intersection(connected_to_outputs)
-        for c in connections: 
+        for c in connections:
             # Only include connection if both source and target node resides in the real path from input to output
             if (c.x1, c.y1) in true_nodes and (c.x2, c.y2) in true_nodes:
                 true_connections.add(c)
-        
+
         true_nodes -= (set(self.substrate.input_coordinates).union(set(self.substrate.output_coordinates)))
-        
+
         return true_nodes, true_connections
 
 
-# Class representing an area in the quadtree defined by a center coordinate and the distance to the edges of the area. 
+# Class representing an area in the quadtree defined by a center coordinate and the distance to the edges of the area.
 class QuadPoint:
 
     def __init__(self, x, y, width, lvl):
@@ -232,7 +232,7 @@ class QuadPoint:
 
 # Class representing a connection from one point to another with a certain weight.
 class Connection:
-    
+
     def __init__(self, x1, y1, x2, y2, weight):
         self.x1 = x1
         self.y1 = y1
@@ -255,9 +255,9 @@ def find_pattern(cppn, coord, res=60, max_weight=5.0):
     for x2 in range(res):
         for y2 in range(res):
 
-            x2_scaled = -1.0 + (x2/float(res))*2.0 
+            x2_scaled = -1.0 + (x2/float(res))*2.0
             y2_scaled = -1.0 + (y2/float(res))*2.0
-            
+
             i = [coord[0], coord[1], x2_scaled, y2_scaled, 1.0]
             n = cppn.activate(i)[0]
 
