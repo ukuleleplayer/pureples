@@ -1,6 +1,9 @@
 import neat 
 import neat.nn
-import cPickle as pickle
+try:
+   import cPickle as pickle
+except:
+   import pickle
 import sys
 import os.path
 from pureples.shared.visualize import draw_net
