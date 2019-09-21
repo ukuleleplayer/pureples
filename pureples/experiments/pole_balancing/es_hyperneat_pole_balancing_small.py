@@ -1,6 +1,9 @@
 import neat 
 import logging
-import cPickle as pickle
+try:
+   import cPickle as pickle
+except:
+   import pickle
 import gym
 from pureples.shared.visualize import draw_net
 from pureples.shared.substrate import Substrate

@@ -1,6 +1,9 @@
 import neat 
 import neat.nn
-import cPickle as pickle
+try:
+   import cPickle as pickle
+except:
+   import pickle
 from pureples.shared.visualize import draw_net
 from pureples.shared.substrate import Substrate
 from pureples.hyperneat.hyperneat import create_phenotype_network
