@@ -100,7 +100,7 @@ def draw_es(id_to_coords, connections, filename):
         plt.arrow(c.x1, c.y1, c.x2-c.x1, c.y2-c.y1, head_width=0.00, head_length=0.0, 
                   fc=color, ec=color, length_includes_head = True)
 
-    for (coord, idx) in id_to_coords.iteritems():
+    for (coord, idx) in id_to_coords.items():
         plt.plot(coord[0], coord[1], marker='o', markersize=8.0, color='grey')
 
     plt.grid()

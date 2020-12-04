@@ -3,6 +3,19 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+pureples/experiments/*/es_hyperneat_*_small_cppn
+pureples/experiments/*/es_hyperneat_*_small_cppn.pdf
+pureples/experiments/*/es_hyperneat_*_small_cppn.pkl
+pureples/experiments/*/es_hyperneat_*_small_winner.png
+pureples/experiments/*/hyperneat_*_cppn
+pureples/experiments/*/hyperneat_*_cppn.pdf
+pureples/experiments/*/hyperneat_*_cppn.pkl
+pureples/experiments/*/hyperneat_*_winner
+pureples/experiments/*/hyperneat_*_winner.pdf
+pureples/experiments/*/neat_*_winner
+pureples/experiments/*/neat_*_winner.pdf
+pureples/experiments/*/winner_neat_*.pkl
+
 # C extensions
 *.so
 

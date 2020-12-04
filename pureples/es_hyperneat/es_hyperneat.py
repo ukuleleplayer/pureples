@@ -51,7 +51,7 @@ class ESNetwork:
             hidden_idx += 1
 
         # For every coordinate, check the connections and create a node with corresponding connections if appropriate.
-        for (x, y), idx in coords_to_id.iteritems():
+        for (x, y), idx in coords_to_id.items():
             for c in connections:
                 if c.x2 == x and c.y2 == y:
                     draw_connections.append(c)
@@ -63,7 +63,7 @@ class ESNetwork:
                         nodes[idx] = [(coords_to_id[c.x1, c.y1], c.weight)]
 
         # Combine the indices with the connections/links forming node_evals used by the RecurrentNetwork.
-        for idx, links in nodes.iteritems():
+        for idx, links in nodes.items():
             node_evals.append((idx, self.activation, sum, 0.0, 1.0, links))
 
         # Visualize the network?
