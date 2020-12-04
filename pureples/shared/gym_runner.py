@@ -26,13 +26,13 @@ def run_es(gens, env, max_steps, config, params, substrate, max_trials=100, outp
 
             fitnesses = []
 
-            for i in xrange(trials):
+            for i in range(trials):
                 ob = env.reset()
                 net.reset()
 
                 total_reward = 0
 
-                for j in xrange(max_steps):
+                for j in range(max_steps):
                     for k in range(network.activations):
                         o = net.activate(ob)
                     action = np.argmax(o)
@@ -76,13 +76,13 @@ def run_hyper(gens, env, max_steps, config, substrate, activations, max_trials=1
 
             fitnesses = []
 
-            for i in xrange(trials):
+            for i in range(trials):
                 ob = env.reset()
                 net.reset()
 
                 total_reward = 0
 
-                for j in xrange(max_steps):
+                for j in range(max_steps):
                     for k in range(activations):
                         o = net.activate(ob)
                     action = np.argmax(o)
@@ -125,12 +125,12 @@ def run_neat(gens, env, max_steps, config, max_trials=100, output=True):
 
             fitnesses = []
 
-            for i in xrange(trials):
+            for i in range(trials):
                 ob = env.reset()
 
                 total_reward = 0
 
-                for j in xrange(max_steps):
+                for j in range(max_steps):
                     o = net.activate(ob)
                     action = np.argmax(o)
                     ob, reward, done, info = env.step(action)
