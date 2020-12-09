@@ -7,9 +7,7 @@ except:
 
 
 # Draw neural network with arbitrary topology.
-def draw_net(net, filename=None):
-    node_names = {}
-    node_colors = {}
+def draw_net(net, filename=None, node_names={}, node_colors={}):
 
     node_attrs = {
         'shape': 'circle',
