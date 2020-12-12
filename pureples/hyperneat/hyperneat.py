@@ -67,7 +67,7 @@ def find_neurons(cppn, coord, nodes, start_idx, outgoing, max_weight=5.0):
     for node in nodes:
         w = query_cppn(coord, node, outgoing, cppn, max_weight)
 
-        if w is not 0.0:  # Only include connection if the weight isn't 0.0.
+        if w != 0.0:  # Only include connection if the weight isn't 0.0.
             im.append((idx, w))
         idx += 1
 
