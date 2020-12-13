@@ -54,7 +54,7 @@ def run_es(gens, env, max_steps, config, params, substrate, max_trials=100, outp
     trials = 10
     winner_ten = pop.run(eval_fitness, gens)
 
-    if max_trials is 0:
+    if max_trials == 0:
         return winner_ten, (stats_one, stats_ten)
 
     stats_hundred = neat.statistics.StatisticsReporter()
@@ -104,7 +104,7 @@ def run_hyper(gens, env, max_steps, config, substrate, activations, max_trials=1
     trials = 10
     winner_ten = pop.run(eval_fitness, gens)
 
-    if max_trials is 0:
+    if max_trials == 0:
         return winner_ten, (stats_one, stats_ten)
 
     stats_hundred = neat.statistics.StatisticsReporter()
@@ -151,7 +151,7 @@ def run_neat(gens, env, max_steps, config, max_trials=100, output=True):
     trials = 10
     winner_ten = pop.run(eval_fitness, gens)
 
-    if max_trials is 0:
+    if max_trials == 0:
         return winner_ten, (stats_one, stats_ten)
 
     stats_hundred = neat.statistics.StatisticsReporter()
