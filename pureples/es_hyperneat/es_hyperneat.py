@@ -166,7 +166,7 @@ class ESNetwork:
                     hidden_nodes.add((c.x2, c.y2))
                 self.connections = set()
 
-        unexplored_hidden_nodes -= hidden_nodes
+            unexplored_hidden_nodes = hidden_nodes - unexplored_hidden_nodes
 
         for x, y in outputs:  # Explore to outputs.
             root = self.division_initialization((x, y), False)
