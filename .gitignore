@@ -100,3 +100,6 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Trash
+.png
