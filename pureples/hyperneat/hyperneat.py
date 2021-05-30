@@ -1,4 +1,4 @@
-import neat 
+import neat
 
 
 # Creates a recurrent network using a cppn and a substrate.
