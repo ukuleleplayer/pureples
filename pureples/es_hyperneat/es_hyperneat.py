@@ -242,7 +242,7 @@ class Connection:
 
     # Below is needed for use in set.
     def __eq__(self,other):
-        return self.x1, self.y1, self.x2, self.y2 == other.x1, other.y1, other.x2, other.y2
+        return (self.x1, self.y1, self.x2, self.y2) == (other.x1, other.y1, other.x2, other.y2)
 
     def __hash__(self):
         return hash((self.x1, self.y1, self.x2, self.y2, self.weight))
