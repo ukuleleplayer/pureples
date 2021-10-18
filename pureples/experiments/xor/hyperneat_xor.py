@@ -88,7 +88,7 @@ if __name__ == '__main__':
             inputs, expected, output))
 
     # Save CPPN if wished reused and draw it to file along with the winner.
-    with open('hyperneat_xor_cppn.pkl', 'wb') as output:
+    with open('pureples/experiments/xor/hyperneat_xor_cppn.pkl', 'wb') as output:
         pickle.dump(CPPN, output, pickle.HIGHEST_PROTOCOL)
-    draw_net(CPPN, filename="hyperneat_xor_cppn")
-    draw_net(WINNER_NET, filename="hyperneat_xor_winner")
+    draw_net(CPPN, filename="pureples/experiments/xor/hyperneat_xor_cppn")
+    draw_net(WINNER_NET, filename="pureples/experiments/xor/hyperneat_xor_winner")

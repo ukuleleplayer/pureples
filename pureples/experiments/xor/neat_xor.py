@@ -68,6 +68,6 @@ if __name__ == '__main__':
             inputs, expected, output))
 
     # Save net if wished reused and draw it to a file.
-    with open('winner_neat_xor.pkl', 'wb') as output:
+    with open('pureples/experiments/xor/winner_neat_xor.pkl', 'wb') as output:
         pickle.dump(WINNER_NET, output, pickle.HIGHEST_PROTOCOL)
-    draw_net(WINNER_NET, filename="neat_xor_winner")
+    draw_net(WINNER_NET, filename="pureples/experiments/xor/neat_xor_winner")
