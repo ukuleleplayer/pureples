@@ -1,42 +1,48 @@
-import neat 
+"""
+An experiment using a Neat network to perform the simple XOR task.
+Fitness threshold set in config
+- by default very high to show the high possible accuracy of the NEAT library.
+"""
+
+import pickle
+import neat
 import neat.nn
-try:
-   import cPickle as pickle
-except:
-   import pickle
-import sys
-import os.path
 from pureples.shared.visualize import draw_net
 
 # Network inputs and expected outputs.
-xor_inputs  = [(0.0, 0.0), (0.0, 1.0), (1.0, 0.0), (1.0, 1.0)]
-xor_outputs = [    (0.0,),     (1.0,),     (1.0,),     (0.0,)]
+XOR_INPUTS = [(0.0, 0.0), (0.0, 1.0), (1.0, 0.0), (1.0, 1.0)]
+XOR_OUTPUTS = [(0.0,), (1.0,), (1.0,), (0.0,)]
 
 # Config for FeedForwardNetwork.
-config = neat.config.Config(neat.genome.DefaultGenome, neat.reproduction.DefaultReproduction,
+CONFIG = neat.config.Config(neat.genome.DefaultGenome, neat.reproduction.DefaultReproduction,
                             neat.species.DefaultSpeciesSet, neat.stagnation.DefaultStagnation,
-                            'config_neat_xor')
+                            'pureples/experiments/xor/config_neat_xor')
 
 
 def eval_fitness(genomes, config):
-    
-    for idx, g in genomes:
+    """
+    Fitness function.
+    For each genome evaluate its fitness, in this case, as the mean squared error.
+    """
+    for _, genome in genomes:
+        net = neat.nn.FeedForwardNetwork.create(genome, config)
 
-        net = neat.nn.FeedForwardNetwork.create(g, config)
-        
         sum_square_error = 0.0
-        for inputs, expected in zip(xor_inputs, xor_outputs):
 
-            new_input = inputs + (1.0,)
-            output = net.activate(new_input)
-            sum_square_error += ((output[0] - expected[0])**2.0)/4.0
- 
-        g.fitness = 1 - sum_square_error
+        for xor_inputs, xor_expected in zip(XOR_INPUTS, XOR_OUTPUTS):
+            new_xor_input = xor_inputs + (1.0,)
+            xor_output = net.activate(new_xor_input)
+            sum_square_error += ((xor_output[0] - xor_expected[0])**2.0)/4.0
+
+        genome.fitness = 1 - sum_square_error
 
 
-# Create the population and run the XOR task by providing the above fitness function.
 def run(gens):
-    pop = neat.population.Population(config)
+    """
+    Create the population and run the XOR task by providing eval_fitness as the fitness function.
+    Returns the winning genome and the statistics of the run.
+    """
+    pop = neat.population.Population(CONFIG)
     stats = neat.statistics.StatisticsReporter()
     pop.add_reporter(stats)
     pop.add_reporter(neat.reporting.StdOutReporter(True))
@@ -48,19 +54,20 @@ def run(gens):
 
 # If run as script.
 if __name__ == '__main__':
-    winner = run(300)[0]
-    print('\nBest genome:\n{!s}'.format(winner))
+    WINNER = run(300)[0]  # Only relevant to look at the winner.
+    print('\nBest genome:\n{!s}'.format(WINNER))
 
     # Verify network output against training data.
     print('\nOutput:')
-    winner_net = neat.nn.FeedForwardNetwork.create(winner, config)
-    for inputs, expected in zip(xor_inputs, xor_outputs):
+    WINNER_NET = neat.nn.FeedForwardNetwork.create(WINNER, CONFIG)
+
+    for inputs, expected in zip(XOR_INPUTS, XOR_OUTPUTS):
         new_input = inputs + (1.0,)
-        output = winner_net.activate(new_input)
-        print("  input {!r}, expected output {!r}, got {!r}".format(inputs, expected, output))
+        output = WINNER_NET.activate(new_input)
+        print("  input {!r}, expected output {!r}, got {!r}".format(
+            inputs, expected, output))
 
     # Save net if wished reused and draw it to a file.
     with open('winner_neat_xor.pkl', 'wb') as output:
-        pickle.dump(winner_net, output, pickle.HIGHEST_PROTOCOL)
-    draw_net(winner_net, filename="neat_xor_winner")
-
+        pickle.dump(WINNER_NET, output, pickle.HIGHEST_PROTOCOL)
+    draw_net(WINNER_NET, filename="neat_xor_winner")
