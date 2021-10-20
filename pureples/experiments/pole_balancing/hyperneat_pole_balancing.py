@@ -45,7 +45,7 @@ if __name__ == '__main__':
     LOGGER.setLevel(logging.INFO)
     ENVIRONMENT = gym.make("CartPole-v1")
 
-    # Run!
+    # Run! Only relevant to look at the winner.
     WINNER = run(100, ENVIRONMENT)[0]
 
     # Save CPPN if wished reused and draw it + winner to file.
