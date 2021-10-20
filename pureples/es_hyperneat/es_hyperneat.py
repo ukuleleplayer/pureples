@@ -286,7 +286,7 @@ class Connection:
 
     # Below is needed for use in set.
     def __eq__(self, other):
-        if isinstance(other) is not Connection:
+        if not isinstance(other, Connection):
             return NotImplemented
         return (self.x1, self.y1, self.x2, self.y2) == (other.x1, other.y1, other.x2, other.y2)
 
