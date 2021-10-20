@@ -1,3 +1,7 @@
+"""
+An experiment using HyperNEAT to perform a mountain car task.
+"""
+
 import logging
 import pickle
 import gym

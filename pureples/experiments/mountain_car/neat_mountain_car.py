@@ -1,3 +1,7 @@
+"""
+An experiment using NEAT to perform a mountain car task.
+"""
+
 import logging
 import pickle
 import gym

@@ -1,5 +1,5 @@
 """
-Runs ALL XOR tasks using ES-HyperNeat, HyperNeat and Neat.
+Runs ALL XOR tasks using ES-HyperNEAT, HyperNEAT and NEAT.
 Reports everything to text files.
 """
 

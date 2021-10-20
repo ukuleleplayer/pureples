@@ -1,5 +1,5 @@
 """
-An experiment using a Neat network to perform a pole balancing task.
+An experiment using NEAT to perform a pole balancing task.
 """
 
 import logging

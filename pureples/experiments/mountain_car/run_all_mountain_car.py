@@ -1,5 +1,5 @@
 """
-Runs ALL mountain car tasks using ES-HyperNeat, HyperNeat and Neat.
+Runs ALL mountain car tasks using ES-HyperNEAT, HyperNEAT and NEAT.
 Reports everything to text files.
 """
 

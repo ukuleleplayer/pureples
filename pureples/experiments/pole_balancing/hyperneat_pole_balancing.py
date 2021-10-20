@@ -1,5 +1,5 @@
 """
-An experiment using a HyperNeat network to perform a pole balancing task.
+An experiment using HyperNEAT to perform a pole balancing task.
 """
 
 import pickle

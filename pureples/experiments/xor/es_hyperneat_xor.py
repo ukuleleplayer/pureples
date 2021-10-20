@@ -1,5 +1,5 @@
 """
-An experiment using a variable-sized ES HyperNeat network to perform the simple XOR task.
+An experiment using a variable-sized ES-HyperNEAT network to perform the simple XOR task.
 Fitness threshold set in config
 - by default very high to show the high possible accuracy of this library.
 """

@@ -1,5 +1,5 @@
 """
-An experiment using a Neat network to perform the simple XOR task.
+An experiment using NEAT to perform the simple XOR task.
 Fitness threshold set in config
 - by default very high to show the high possible accuracy of the NEAT library.
 """

@@ -1,5 +1,5 @@
 """
-An experiment using a HyperNeat network to perform the simple XOR task.
+An experiment using HyperNEAT to perform the simple XOR task.
 Fitness threshold set in config
 - by default very high to show the high possible accuracy of this library.
 """
