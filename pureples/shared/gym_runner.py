@@ -35,7 +35,7 @@ def run_es(gens, env, max_steps, config, params, substrate, max_trials=100, outp
             fitnesses = []
 
             for _ in range(trials):
-                ob = env.reset()
+                ob = env.reset()[0]
                 net.reset()
 
                 total_reward = 0
@@ -45,7 +45,8 @@ def run_es(gens, env, max_steps, config, params, substrate, max_trials=100, outp
                         o = net.activate(ob)
 
                     action = np.argmax(o)
-                    ob, reward, done, _ = env.step(action)
+                    ob, reward, terminated, truncated, _ = env.step(action)
+                    done = terminated or truncated
                     total_reward += reward
                     if done:
                         break
@@ -91,7 +92,7 @@ def run_hyper(gens, env, max_steps, config, substrate, activations, max_trials=1
             fitnesses = []
 
             for _ in range(trials):
-                ob = env.reset()
+                ob = env.reset()[0]
                 net.reset()
 
                 total_reward = 0
@@ -100,7 +101,8 @@ def run_hyper(gens, env, max_steps, config, substrate, activations, max_trials=1
                     for _ in range(activations):
                         o = net.activate(ob)
                     action = np.argmax(o)
-                    ob, reward, done, _ = env.step(action)
+                    ob, reward, terminated, truncated, _ = env.step(action)
+                    done = terminated or truncated
                     total_reward += reward
                     if done:
                         break
@@ -143,14 +145,15 @@ def run_neat(gens, env, max_steps, config, max_trials=100, output=True):
             fitnesses = []
 
             for _ in range(trials):
-                ob = env.reset()
+                ob = env.reset()[0]
 
                 total_reward = 0
 
                 for _ in range(max_steps):
                     o = net.activate(ob)
                     action = np.argmax(o)
-                    ob, reward, done, _ = env.step(action)
+                    ob, reward, terminated, truncated, _ = env.step(action)
+                    done = terminated or truncated
                     total_reward += reward
                     if done:
                         break

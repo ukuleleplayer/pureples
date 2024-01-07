@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='pureples',
-    version='0.0',
+    version='0.1',
     author='adrian, simon',
     author_email='mail@adrianwesth.dk',
     maintainer='simon, adrian',
