@@ -13,7 +13,7 @@ from pureples.shared.gym_runner import run_neat
 # Config for FeedForwardNetwork.
 CONFIG = neat.config.Config(neat.genome.DefaultGenome, neat.reproduction.DefaultReproduction,
                             neat.species.DefaultSpeciesSet, neat.stagnation.DefaultStagnation,
-                            'config_neat_pole_balancing')
+                            'pureples/experiments/pole_balancing/config_neat_pole_balancing')
 
 
 def run(gens, env):
