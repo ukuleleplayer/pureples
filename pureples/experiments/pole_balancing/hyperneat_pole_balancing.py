@@ -5,7 +5,7 @@ An experiment using HyperNEAT to perform a pole balancing task.
 import pickle
 import logging
 import neat
-import gym
+import gymnasium as gym
 from pureples.shared.visualize import draw_net
 from pureples.shared.substrate import Substrate
 from pureples.shared.gym_runner import run_hyper

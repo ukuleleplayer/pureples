@@ -5,7 +5,7 @@ An experiment using a variable-sized ES-HyperNEAT network to perform a mountain 
 import logging
 import pickle
 import neat
-import gym
+import gymnasium as gym
 from pureples.shared.visualize import draw_net
 from pureples.shared.substrate import Substrate
 from pureples.shared.gym_runner import run_es

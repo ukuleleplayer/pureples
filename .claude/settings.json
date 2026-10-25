@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.venv/Scripts/python.exe -c \"import neat,inspect;print\\(inspect.getsourcefile\\(neat.population\\)\\)\")"
+    ]
+  }
+}

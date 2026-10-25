@@ -1,0 +1,17 @@
+digraph svg {
+	node [fontsize=9 height=0.2 shape=circle width=0.2]
+	-1 [fillcolor=lightgray shape=box style=filled]
+	-2 [fillcolor=lightgray shape=box style=filled]
+	-3 [fillcolor=lightgray shape=box style=filled]
+	-4 [fillcolor=lightgray shape=box style=filled]
+	-5 [fillcolor=lightgray shape=box style=filled]
+	-6 [fillcolor=lightgray shape=box style=filled]
+	1712412 [fillcolor=lightblue style=filled]
+	1712413 [fillcolor=lightblue style=filled]
+	2053610 [fillcolor=lightblue style=filled]
+	2053611 [fillcolor=lightblue style=filled]
+	-1 -> 2053610 [color=red penwidth=1.0200017551602902 style=solid]
+	-6 -> 2053610 [color=green penwidth=1.0998790344390716 style=solid]
+	-1 -> 1712412 [color=red penwidth=0.6548122869050649 style=solid]
+	-6 -> 1712412 [color=green penwidth=0.9289651555871515 style=solid]
+}

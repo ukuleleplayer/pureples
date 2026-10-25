@@ -99,17 +99,64 @@ def query_cppn(coord1, coord2, outgoing, cppn, max_weight=5.0):
     Get the weight from one point to another using the CPPN.
     Takes into consideration which point is source/target.
     """
+    conn_length = ((coord1[0] - coord2[0])**2 + (coord1[1] - coord2[1])**2)**0.5
 
     if outgoing:
-        i = [coord1[0], coord1[1], coord2[0], coord2[1], 1.0]
+        i = [coord1[0], coord1[1], coord2[0], coord2[1], 1.0, conn_length]
     else:
-        i = [coord2[0], coord2[1], coord1[0], coord1[1], 1.0]
+        i = [coord2[0], coord2[1], coord1[0], coord1[1], 1.0, conn_length]
     w = cppn.activate(i)[0]
-    if abs(w) > 0.2:  # If abs(weight) is below threshold, treat weight as 0.0.
+    if abs(w) > 0.15:  # If abs(weight) is below threshold, treat weight as 0.0.
         if w > 0:
-            w = (w - 0.2) / 0.8
+            w = (w - 0.15) / 0.8
         else:
-            w = (w + 0.2) / 0.8
+            w = (w + 0.15) / 0.8
+        return w * max_weight
+    else:
+        return 0.0
+    
+def query_cppn_adaptive_es(coord1, coord2, outgoing, cppn, cppn_outputs, max_weight=5.0):
+    """
+    Get the weight from one point to another using the CPPN.
+    Takes into consideration which point is source/target.
+    """
+    conn_length = ((coord1[0] - coord2[0])**2 + (coord1[1] - coord2[1])**2)**0.5
+
+    if outgoing:
+        i = [coord1[0], coord1[1], coord2[0], coord2[1], 1.0, conn_length]
+    else:
+        i = [coord2[0], coord2[1], coord1[0], coord1[1], 1.0, conn_length]
+        
+    outputs = cppn.activate(i)
+    w = outputs[cppn_outputs]
+    a, b, c, d, n = outputs[2], outputs[3], outputs[4], outputs[5], outputs[6]
+    if abs(w) > 0.15:  # If abs(weight) is below threshold, treat weight as 0.0.
+        if w > 0:
+            w = (w - 0.15) / 0.8
+        else:
+            w = (w + 0.15) / 0.8
+        return [w * max_weight, a, b, c, d, n]
+    else:
+        return [0.0, a, b, c, d, n]
+
+
+def query_cppn_des(coord1, coord2, outgoing, cppn, branch_nodes, max_weight=5.0):
+    """
+    Get the weight from one point to another using the CPPN.
+    Takes into consideration which point is source/target.
+    """
+    conn_length = ((coord1[0] - coord2[0])**2 + (coord1[1] - coord2[1])**2)**0.5
+
+    if outgoing:
+        i = [coord1[0], coord1[1], coord2[0], coord2[1], 1.0, conn_length]
+    else:
+        i = [coord2[0], coord2[1], coord1[0], coord1[1], 1.0, conn_length]
+    w = cppn.activate(i, branch_nodes)[0]
+    if abs(w) > 0.15:  # If abs(weight) is below threshold, treat weight as 0.0.
+        if w > 0:
+            w = (w - 0.15) / 0.8
+        else:
+            w = (w + 0.15) / 0.8
         return w * max_weight
     else:
         return 0.0

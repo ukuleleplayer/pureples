@@ -1,0 +1,49 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: adaptive es t maze",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "pureples.experiments.t_maze.adaptive_es_t_maze"
+        }
+        
+        {
+            "name": "Python Debugger: adaptive es pole balancing",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "pureples.experiments.pole_balancing.adaptive_es_hyperneat_pole_balancing"
+        }
+
+        {
+            "name": "Python Debugger: adaptive des t-maze",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "pureples.experiments.t_maze.adaptive_des_t_maze"
+        }
+
+        {
+            "name": "Python Debugger: adaptive_des_hyperneat_pole_balancing_module",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "pureples.experiments.pole_balancing.adaptive_des_hyperneat_pole_balancing"
+        }
+
+        {
+            "name": "Python Debugger: des_xor_module",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "pureples.experiments.xor.des_hyperneat_xor"
+        }
+
+        {
+            "name": "Python Debugger: es_hyperneat_pole_balancing",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "pureples.experiments.pole_balancing.es_hyperneat_pole_balancing"
+        }
+    ]
+}

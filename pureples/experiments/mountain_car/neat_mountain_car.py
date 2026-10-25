@@ -4,7 +4,7 @@ An experiment using NEAT to perform a mountain car task.
 
 import logging
 import pickle
-import gym
+import gymnasium as gym
 import neat
 from pureples.shared.visualize import draw_net
 from pureples.shared.gym_runner import run_neat

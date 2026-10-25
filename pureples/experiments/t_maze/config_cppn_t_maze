@@ -1,0 +1,416 @@
+#--- parameters for the CPPN regarding the single pole balancing experiment  ---#
+
+[NEAT]
+fitness_criterion     = max
+fitness_threshold     = 17.0
+pop_size              = 300
+reset_on_extinction   = False
+no_fitness_termination = False
+
+[DefaultGenome]
+# node activation options
+activation_default      = tanh
+activation_mutate_rate  = 0.5
+activation_options      = gauss sin tanh
+
+single_structural_mutation = True
+structural_mutation_surer = default
+
+enabled_rate_to_true_add = 0.0
+enabled_rate_to_false_add = 0.0
+
+# node aggregation options
+aggregation_default     = sum
+aggregation_mutate_rate = 0.0
+aggregation_options     = sum
+
+# node bias options
+bias_init_mean          = 0.0
+bias_init_stdev         = 1.0
+bias_max_value          = 30.0
+bias_min_value          = -30.0
+bias_mutate_power       = 0.5
+bias_mutate_rate        = 0.7
+bias_replace_rate       = 0.1
+bias_init_type          = gaussian
+
+# genome compatibility options
+compatibility_disjoint_coefficient = 1.0
+compatibility_weight_coefficient   = 0.5
+
+# connection add/remove rates
+conn_add_prob           = 0.15
+conn_delete_prob        = 0.15
+
+# connection enable options
+enabled_default         = True
+enabled_mutate_rate     = 0.01
+
+feed_forward            = True
+initial_connection      = full
+
+# node add/remove rates
+node_add_prob           = 0.2
+node_delete_prob        = 0.2
+
+# network parameters
+num_hidden              = 0
+num_inputs              = 5
+num_outputs             = 1
+
+# node response options
+response_init_mean      = 1.0
+response_init_stdev     = 0.0
+response_max_value      = 30.0
+response_min_value      = -30.0
+response_mutate_power   = 0.0
+response_mutate_rate    = 0.0
+response_replace_rate   = 0.0
+response_init_type      = gaussian
+
+# connection weight options
+weight_init_mean        = 0.0
+weight_init_stdev       = 1.0
+weight_max_value        = 30
+weight_min_value        = -30
+weight_mutate_power     = 0.5
+weight_mutate_rate      = 0.8
+weight_replace_rate     = 0.1
+weight_init_type        = gaussian
+
+[DefaultSpeciesSet]
+compatibility_threshold = 3.0
+
+[DefaultStagnation]
+species_fitness_func = max
+max_stagnation       = 20
+species_elitism      = 5
+
+[DefaultReproduction]
+elitism            = 5
+survival_threshold = 0.2
+min_species_size = 5
+
+
+[AdaptiveDefaultGenome]
+
+# node activation options
+activation_default      = tanh
+activation_mutate_rate  = 0.5
+activation_options      = gauss sin tanh abs sigmoid
+
+single_structural_mutation = False
+structural_mutation_surer = default
+
+enabled_rate_to_true_add = 0.0
+enabled_rate_to_false_add = 0.0
+
+# node aggregation options
+aggregation_default     = sum
+aggregation_mutate_rate = 0.0
+aggregation_options     = sum
+
+# node bias options
+bias_init_mean          = 0.0
+bias_init_stdev         = 1.0
+bias_max_value          = 30.0
+bias_min_value          = -30.0
+bias_mutate_power       = 0.5
+bias_mutate_rate        = 0.7
+bias_replace_rate       = 0.1
+bias_init_type          = gaussian
+
+# genome compatibility options
+compatibility_disjoint_coefficient = 1.0
+compatibility_weight_coefficient   = 0.5
+
+# connection add/remove rates
+conn_add_prob           = 0.03
+conn_delete_prob        = 0.03
+
+# connection enable options
+enabled_default         = True
+enabled_mutate_rate     = 0.01
+
+feed_forward            = True
+initial_connection      = full
+
+# node add/remove rates
+node_add_prob           = 0.02
+node_delete_prob        = 0.02
+
+# network parameters
+num_hidden              = 0
+num_inputs              = 6
+num_outputs             = 7
+
+# node response options
+response_init_mean      = 1.0
+response_init_stdev     = 0.0
+response_max_value      = 30.0
+response_min_value      = -30.0
+response_mutate_power   = 0.0
+response_mutate_rate    = 0.0
+response_replace_rate   = 0.0
+response_init_type      = gaussian
+
+# connection weight options
+weight_init_mean        = 0.0
+weight_init_stdev       = 1.0
+weight_max_value        = 30
+weight_min_value        = -30
+weight_mutate_power     = 0.5
+weight_mutate_rate      = 0.94
+weight_replace_rate     = 0.1
+weight_init_type        = gaussian
+
+
+[DesGenome]
+# node activation options
+activation_default      = tanh
+activation_mutate_rate  = 0.5
+activation_options      = gauss sin tanh
+
+single_structural_mutation = False
+structural_mutation_surer = default
+
+enabled_rate_to_true_add = 0.0
+enabled_rate_to_false_add = 0.0
+
+# node aggregation options
+aggregation_default     = sum
+aggregation_mutate_rate = 0.0
+aggregation_options     = sum
+
+# node bias options
+bias_init_mean          = 0.0
+bias_init_stdev         = 1.0
+bias_max_value          = 30.0
+bias_min_value          = -30.0
+bias_mutate_power       = 0.5
+bias_mutate_rate        = 0.7
+bias_replace_rate       = 0.1
+bias_init_type          = gaussian
+
+# genome compatibility options
+compatibility_disjoint_coefficient = 1.0
+compatibility_weight_coefficient   = 0.5
+
+# connection add/remove rates
+conn_add_prob           = 0.5
+conn_delete_prob        = 0.5
+
+# branch options
+branch_add_prob         = 0.065
+is_branch_default       = False
+is_branch_mutate_rate   = 0.0
+is_branch_rate_to_true_add = 0.0
+is_branch_rate_to_false_add = 0.0
+
+branch_id_init_mean         = 0.0
+branch_id_init_stdev        = 0.0
+branch_id_max_value         = 10000.0
+branch_id_min_value         = 0.0
+branch_id_mutate_power      = 0.0
+branch_id_mutate_rate       = 0.0
+branch_id_replace_rate      = 0.0
+branch_id_init_type         = gaussian
+
+# connection enable options
+enabled_default         = True
+enabled_mutate_rate     = 0.01
+
+feed_forward            = True
+initial_connection      = full
+
+# node add/remove rates
+node_add_prob           = 0.2
+node_delete_prob        = 0.2
+
+# network parameters
+num_hidden              = 0
+num_inputs              = 6
+num_outputs             = 1
+
+# node response options
+response_init_mean      = 1.0
+response_init_stdev     = 0.0
+response_max_value      = 30.0
+response_min_value      = -30.0
+response_mutate_power   = 0.0
+response_mutate_rate    = 0.0
+response_replace_rate   = 0.0
+response_init_type      = gaussian
+
+# scale factor options
+scale_init_mean          = 0.0
+scale_init_stdev         = 0.4
+scale_max_value          = 1.0
+scale_min_value          = -1.0
+scale_mutate_power       = 0.5
+scale_mutate_rate        = 0.7
+scale_replace_rate       = 0.1
+scale_init_type          = gaussian
+
+# connection weight options
+weight_init_mean        = 0.0
+weight_init_stdev       = 1.0
+weight_max_value        = 30
+weight_min_value        = -30
+weight_mutate_power     = 0.5
+weight_mutate_rate      = 0.8
+weight_replace_rate     = 0.1
+weight_init_type        = gaussian
+
+
+[DesReproduction]
+elitism            = 5
+survival_threshold = 0.2
+min_species_size   = 5
+
+
+
+[AdaptiveDesGenome]
+
+# plasticity parameters options
+a_init_mean         = 0.0
+a_init_stdev        = 0.4
+a_max_value         = 1.0
+a_min_value         = -1.0
+a_mutate_power      = 0.5
+a_mutate_rate       = 0.7
+a_replace_rate      = 0.1
+a_init_type         = gaussian
+
+b_init_mean         = 0.0
+b_init_stdev        = 0.4
+b_max_value         = 1.0
+b_min_value         = -1.0
+b_mutate_power      = 0.5
+b_mutate_rate       = 0.7
+b_replace_rate      = 0.1
+b_init_type         = gaussian
+
+c_init_mean         = 0.0
+c_init_stdev        = 0.4
+c_max_value         = 1.0
+c_min_value         = -1.0
+c_mutate_power      = 0.5
+c_mutate_rate       = 0.7
+c_replace_rate      = 0.1
+c_init_type         = gaussian
+
+d_init_mean         = 0.0
+d_init_stdev        = 0.4
+d_max_value         = 1.0
+d_min_value         = -1.0
+d_mutate_power      = 0.5
+d_mutate_rate       = 0.7
+d_replace_rate      = 0.1
+d_init_type         = gaussian
+
+n_init_mean         = 0.0
+n_init_stdev        = 0.4
+n_max_value         = 1.0
+n_min_value         = -1.0
+n_mutate_power      = 0.5
+n_mutate_rate       = 0.7
+n_replace_rate      = 0.1
+n_init_type         = gaussian
+
+branch_id_init_mean         = 0.0
+branch_id_init_stdev        = 0.0
+branch_id_max_value         = 10000.0
+branch_id_min_value         = 0.0
+branch_id_mutate_power      = 0.0
+branch_id_mutate_rate       = 0.0
+branch_id_replace_rate      = 0.0
+branch_id_init_type         = gaussian
+
+# node activation options
+activation_default      = tanh
+activation_mutate_rate  = 0.5
+activation_options      = gauss sin tanh abs sigmoid
+
+single_structural_mutation = False
+structural_mutation_surer = default
+
+enabled_rate_to_true_add = 0.0
+enabled_rate_to_false_add = 0.0
+
+# node aggregation options
+aggregation_default     = sum
+aggregation_mutate_rate = 0.0
+aggregation_options     = sum
+
+# node bias options
+bias_init_mean          = 0.0
+bias_init_stdev         = 1.0
+bias_max_value          = 30.0
+bias_min_value          = -30.0
+bias_mutate_power       = 0.5
+bias_mutate_rate        = 0.7
+bias_replace_rate       = 0.1
+bias_init_type          = gaussian
+
+# genome compatibility options
+compatibility_disjoint_coefficient = 1.0
+compatibility_weight_coefficient   = 0.5
+
+# connection add/remove rates
+conn_add_prob           = 0.03
+conn_delete_prob        = 0.03
+
+# branch options
+branch_add_prob         = 0.05
+branch_delete_prob      = 0.05
+is_branch_default       = False
+is_branch_mutate_rate   = 0.0
+is_branch_rate_to_true_add = 0.0
+is_branch_rate_to_false_add = 0.0
+
+# connection enable options
+enabled_default         = True
+enabled_mutate_rate     = 0.01
+
+feed_forward            = True
+initial_connection      = full
+
+# node add/remove rates
+node_add_prob           = 0.02
+node_delete_prob        = 0.02
+
+# network parameters
+num_hidden              = 0
+num_inputs              = 6
+num_outputs             = 2
+
+# node response options
+response_init_mean      = 1.0
+response_init_stdev     = 0.0
+response_max_value      = 30.0
+response_min_value      = -30.0
+response_mutate_power   = 0.0
+response_mutate_rate    = 0.0
+response_replace_rate   = 0.0
+response_init_type      = gaussian
+
+# scale factor options
+scale_init_mean          = 0.0
+scale_init_stdev         = 10.0
+scale_max_value          = 1.0
+scale_min_value          = -1.0
+scale_mutate_power       = 0.5
+scale_mutate_rate        = 0.7
+scale_replace_rate       = 0.1
+scale_init_type          = gaussian
+
+# connection weight options
+weight_init_mean        = 0.0
+weight_init_stdev       = 1.0
+weight_max_value        = 30
+weight_min_value        = -30
+weight_mutate_power     = 0.5
+weight_mutate_rate      = 0.94
+weight_replace_rate     = 0.1
+weight_init_type        = gaussian

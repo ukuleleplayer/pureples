@@ -1,4 +1,18 @@
-<img src="https://github.com/ukuleleplayer/pureples/blob/master/PUREPLES.png" alt="REPLES LOGO" width="400" height="400">
+
+
+This repo is home to a novel extension of Adaptive ES-HyperNEAT called Adaptive Specialized-ES-HyperNEAT. The following abstract overviews Adaptive SES-HyperNEAT's novelty:
+
+
+  Neuroevolution mimics Darwinian evolution to evolve AI neural networks from scratch for control problems such as robotic control. Many features of biological brains have yet to be implemented in neuroevolution algorithms and may improve their ability to evolve intelligence.
+  
+  One such feature is the evolution of functionally distinct neuron types fundamental to biological brains’ intricate circuitry. Prior neuroevolution algorithms encode the circuitry and plasticity (adaptive characteristics) of neural networks as a geometric pattern, but this does not provide the discrete functional organization underlying biological motifs, neuroplasticity, neuromodulation, topography, etc. Therefore, this study introduces a novel extension of Adaptive ES-HyperNEAT called Adaptive Specialized-ES-HyperNEAT which evolves multiple ‘branches’ of connection weight output nodes in the encoding and evolves sets of Hebbian coefficients for respective branches’ connections to share, mirroring the organized functional diversity of biological brains.
+  
+  Comparing the performance of Adaptive SES-HyperNEAT to Adaptive ES-HyperNEAT on a continuous T-maze task, Adaptive SES-HyperNEAT demonstrated more exploration and generalization but less exploitation. This may have been due to the algorithm’s less precise encoding of plasticity (multiple connections shared the same Hebbian coefficients). However, the novel algorithm’s significantly increased speciation sheds light on the fragility of neuroevolution’s results under the unideal manual tuning of parameters. Provided that this is improved for further development of NEAT’s extensions, Adaptive SES-HyperNEAT opens the door to implementing significant features of biological neural networks such as functionally-specific global neuromodulation, advancing our understanding of how neuroevolution algorithms can be improved with future inspiration from biology for evolving more intelligent neural networks.
+
+
+
+---------
+Below is the description of Pureples:
 
 PUREPLES - Pure Python Library for ES-HyperNEAT
 ===============================================

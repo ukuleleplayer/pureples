@@ -13,7 +13,7 @@ setup(
     long_description='Python implementation of HyperNEAT and ES-HyperNEAT ' +
                      'developed by Adrian Westh and Simon Krabbe Munck for evolving arbitrary neural networks. ' +
                      'HyperNEAT and ES-HyperNEAT is originally developed by Kenneth O. Stanley and Sebastian Risi',
-    packages=['pureples', 'pureples/hyperneat', 'pureples/es_hyperneat', 'pureples/shared'],
+    packages=['pureples', 'pureples/hyperneat', 'pureples/des_hyperneat', 'pureples/es_hyperneat', 'pureples/shared'],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',

@@ -5,7 +5,7 @@ An experiment using a variable-sized ES-HyperNEAT network to perform a pole bala
 import pickle
 import logging
 import neat
-import gym
+import gymnasium as gym
 from pureples.shared.visualize import draw_net
 from pureples.shared.substrate import Substrate
 from pureples.shared.gym_runner import run_es
@@ -69,8 +69,8 @@ if __name__ == '__main__':
     CPPN = neat.nn.FeedForwardNetwork.create(WINNER, CONFIG)
     NETWORK = ESNetwork(SUBSTRATE, CPPN, params(VERSION))
     NET = NETWORK.create_phenotype_network(
-        filename=f"pureples/experiments/pole_balancing/es_hyperneat_pole_balancing_{VERSION_TEXT}_winner")
+        filename=f"pureples/experiments/pole_balancing/results/es_hyperneat_pole_balancing_{VERSION_TEXT}_winner")
     draw_net(
-        CPPN, filename=f"pureples/experiments/pole_balancing/es_hyperneat_pole_balancing_{VERSION_TEXT}_cppn")
-    with open(f'pureples/experiments/pole_balancing/es_hyperneat_pole_balancing_{VERSION_TEXT}_cppn.pkl', 'wb') as output:
+        CPPN, filename=f"pureples/experiments/pole_balancing/results/es_hyperneat_pole_balancing_{VERSION_TEXT}_cppn")
+    with open(f'pureples/experiments/pole_balancing/results/es_hyperneat_pole_balancing_{VERSION_TEXT}_cppn.pkl', 'wb') as output:
         pickle.dump(CPPN, output, pickle.HIGHEST_PROTOCOL)

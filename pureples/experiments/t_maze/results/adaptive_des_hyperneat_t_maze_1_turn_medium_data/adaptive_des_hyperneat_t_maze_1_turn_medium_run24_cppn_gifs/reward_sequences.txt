@@ -1,0 +1,69 @@
+Reward sequences — Adaptive DES-HyperNEAT — adaptive_des_hyperneat_t_maze_1_turn_medium_data
+======================================================================
+
+CPPN: pureples/experiments/t_maze/results/adaptive_des_hyperneat_t_maze_1_turn_medium_data/adaptive_des_hyperneat_t_maze_1_turn_medium_run24_cppn.pkl
+Maze length: 1
+
+One row per deployment, one symbol per episode, in order:
+  rewards      H = high reward (1.0), L = low reward (0.1), - = no arm reached (episode timed out)
+  chosen arm   l = left arm, r = right arm, . = no arm reached
+  high arm     the arm the high reward sat on that episode; it flips at
+               the deployment's switch episode(s), which is the change
+               the agent has to detect from its reward feedback
+  steps        how long the deployment ran, which is also how many
+               frames its gif has
+
+Fitness is the deployment's score as the test counts it: a reward only
+counts inside a run of two or more consecutive episodes of the same
+reward (2.0 per high episode, 1.0 per low), and the whole deployment is
+zeroed if the agent only ever reached one arm.
+
+
+Test 1 (all single-switch schedules) — 10 deployments, mean fitness 15.3000
+----------------------------------------------------------------------
+  #   deployment                           fitness  rewards     chosen arm  high arm    steps
+  01  start left, switch after episode 2   16.0     LHHLHHHHHH  rlllrrrrrr  lllrrrrrrr  233
+  02  start left, switch after episode 3   12.0     LHHHLLLLLL  rlllllllll  llllrrrrrr  200
+  03  start left, switch after episode 4   16.0     LHHHHLHHHH  rlllllrrrr  lllllrrrrr  221
+  04  start left, switch after episode 5   14.0     LHHHHHLLLL  rlllllllll  llllllrrrr  199
+  05  start left, switch after episode 6   16.0     LHHHHHHLHH  rlllllllrr  lllllllrrr  209
+  06  start right, switch after episode 2  20.0     HHHHHHHHHH  rrrlllllll  rrrlllllll  204
+  07  start right, switch after episode 3  13.0     HHHLLLLLLL  rrrlrrrrrr  rrrrllllll  218
+  08  start right, switch after episode 4  18.0     HHHLHHHHHH  rrrlrlllll  rrrrrlllll  210
+  09  start right, switch after episode 5  14.0     HHHLHLHHHH  rrrlrlllll  rrrrrrllll  210
+  10  start right, switch after episode 6  14.0     HHHLHLLHHH  rrrlrlllll  rrrrrrrlll  220
+
+  100 episodes: 69 high, 31 low, 0 timed out
+  0 of 10 deployment(s) reached only one arm (scored 0 by the single-arm rule)
+
+
+Test 2 (double-switch generalization) — 6 deployments, mean fitness 30.6667
+----------------------------------------------------------------------
+  #   deployment                                 fitness  rewards               chosen arm            high arm              steps
+  01  start left, switches after episode 5/10    33.0     LHHHHHLLLLLHHHHHHHHH  rlllllllllllllllllll  llllllrrrrrlllllllll  395
+  02  start left, switches after episode 5/15    28.0     LHHHHHLLLLLLLLLLHHHH  rlllllllllllllllllll  llllllrrrrrrrrrrllll  397
+  03  start left, switches after episode 10/15   32.0     LHHHHHHHHHHLHHHHLLLL  rlllllllllllrrrrrrrr  lllllllllllrrrrrllll  434
+  04  start right, switches after episode 5/10   32.0     HHHLHLHHHHHLHHHHHHHH  rrrlrlllllllrrrrrrrr  rrrrrrlllllrrrrrrrrr  453
+  05  start right, switches after episode 5/15   30.0     HHHLHLHHHHHHHHHHLLLL  rrrlrlllllllllllllll  rrrrrrllllllllllrrrr  407
+  06  start right, switches after episode 10/15  29.0     HHHLHLLLHHLHHHHHLHHH  rrrlrlllrrlllllllrrr  rrrrrrrrrrrlllllrrrr  435
+
+  120 episodes: 82 high, 38 low, 0 timed out
+  0 of 6 deployment(s) reached only one arm (scored 0 by the single-arm rule)
+
+
+Test 4 (constant reward feedback) — 10 deployments, mean fitness 14.7000
+----------------------------------------------------------------------
+  #   deployment                           fitness  rewards     chosen arm  high arm    steps
+  01  start left, switch after episode 2   10.0     LLLLLLLLLL  rrrlllllll  lllrrrrrrr  204
+  02  start left, switch after episode 3   9.0      LLLHLLLLLL  rrrlllllll  llllrrrrrr  204
+  03  start left, switch after episode 4   12.0     LLLHHLLLLL  rrrlllllll  lllllrrrrr  204
+  04  start left, switch after episode 5   13.0     LLLHHHLLLL  rrrlllllll  llllllrrrr  204
+  05  start left, switch after episode 6   14.0     LLLHHHHLLL  rrrlllllll  lllllllrrr  204
+  06  start right, switch after episode 2  20.0     HHHHHHHHHH  rrrlllllll  rrrlllllll  204
+  07  start right, switch after episode 3  18.0     HHHLHHHHHH  rrrlllllll  rrrrllllll  204
+  08  start right, switch after episode 4  18.0     HHHLLHHHHH  rrrlllllll  rrrrrlllll  204
+  09  start right, switch after episode 5  17.0     HHHLLLHHHH  rrrlllllll  rrrrrrllll  204
+  10  start right, switch after episode 6  16.0     HHHLLLLHHH  rrrlllllll  rrrrrrrlll  204
+
+  100 episodes: 50 high, 50 low, 0 timed out
+  0 of 10 deployment(s) reached only one arm (scored 0 by the single-arm rule)

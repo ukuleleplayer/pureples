@@ -1,0 +1,9 @@
+ ****** Running generation 145 ****** 
+
+Population's average fitness: -22.78919 stdev: 600.03734
+Best fitness: 3119.91718 - size: (9, 11) - species 18 - id 13652
+
+Best individual in generation 145 meets fitness threshold - complexity: (9, 11)
+adaptive_des_hyperneat_dog_large done
+Key: 13652
+Fitness: 3119.9171848778415

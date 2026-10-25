@@ -1,0 +1,20 @@
+Fitness: 1873.9288783762386
+Gen 68
+Nodes:
+        2275 AdaptiveDesNodeGene(key=2275, is_branch=True, branch_id=0.000, scale=-0.922, n=0.217, a=0.974, b=-0.097, c=-0.007, d=-0.456, bias=-1.340, response=1.000, activation=tanh, aggregation=sum)
+        2276 AdaptiveDesNodeGene(key=2276, is_branch=True, branch_id=0.000, scale=0.988, n=-0.617, a=-0.582, b=-0.359, c=-0.441, d=-0.713, bias=0.884, response=1.000, activation=gauss, aggregation=sum)
+        6321 AdaptiveDesNodeGene(key=6321, is_branch=True, branch_id=1.000, scale=0.831, n=0.008, a=0.456, b=0.052, c=0.110, d=0.635, bias=-0.406, response=1.000, activation=sin, aggregation=sum)
+        6322 AdaptiveDesNodeGene(key=6322, is_branch=True, branch_id=1.000, scale=-1.000, n=0.039, a=-0.481, b=1.000, c=-0.557, d=0.414, bias=-0.285, response=1.000, activation=abs, aggregation=sum)
+        7816 AdaptiveDesNodeGene(key=7816, is_branch=False, branch_id=0.000, scale=0.861, n=-0.655, a=1.000, b=1.000, c=1.000, d=0.697, bias=-1.076, response=1.000, activation=abs, aggregation=sum)
+Connections:
+        DefaultConnectionGene(key=(-6, 2275), innovation=4013, weight=1.110, enabled=True)
+        DefaultConnectionGene(key=(-6, 6321), innovation=5359, weight=-4.241, enabled=True)
+        DefaultConnectionGene(key=(-5, 2275), innovation=2081, weight=2.190, enabled=True)
+        DefaultConnectionGene(key=(-5, 2276), innovation=4793, weight=1.962, enabled=True)
+        DefaultConnectionGene(key=(-5, 6321), innovation=5358, weight=1.880, enabled=True)
+        DefaultConnectionGene(key=(-5, 6322), innovation=5361, weight=-1.264, enabled=True)
+        DefaultConnectionGene(key=(-4, 2275), innovation=2080, weight=-0.257, enabled=False)
+        DefaultConnectionGene(key=(-3, 2275), innovation=5957, weight=2.264, enabled=False)
+        DefaultConnectionGene(key=(-3, 7816), innovation=6647, weight=0.816, enabled=True)
+        DefaultConnectionGene(key=(-2, 6322), innovation=6649, weight=-0.794, enabled=True)
+        DefaultConnectionGene(key=(-1, 2275), innovation=5415, weight=1.844, enabled=True)

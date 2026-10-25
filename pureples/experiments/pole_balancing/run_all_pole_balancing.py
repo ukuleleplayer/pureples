@@ -6,7 +6,7 @@ Reports everything to text files.
 from multiprocessing import Manager
 from itertools import repeat
 import multiprocessing as multi
-import gym
+import gymnasium as gym
 import matplotlib.pyplot as plt
 import matplotlib
 import es_hyperneat_pole_balancing
